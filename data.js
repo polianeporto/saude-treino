@@ -1,5 +1,5 @@
 const GARMIN = {
-  "atualizado": "23/06/2026 às 22:08h",
+  "atualizado": "23/06/2026 às 23:04h",
   "hoje": "2026-06-23",
   "body_battery": 45,
   "bb_max": 51,
@@ -37,5 +37,13 @@ const GARMIN = {
   "orientacao_cor": "yellow",
   "orientacao_icon": "⚠️",
   "orientacao_titulo": "Treino moderado — sem forçar",
-  "orientacao_texto": "Sinais de recuperação incompleta. Musculação com carga reduzida · Cardio zona 2 · Sem corrida forte hoje."
+  "orientacao_texto": "Sinais de recuperação incompleta. Musculação com carga reduzida · Cardio zona 2 · Sem corrida forte hoje.",
+  "treino_nome_hoje": "Costas + Bíceps",
+  "atividade_feita": false,
+  "cardio_feito": false,
+  "musculacao_feita": false,
+  "minutos_ativos_hoje": 0,
+  "alerta_treino": "Treino de hoje: Costas + Bíceps. Você ainda não registrou nenhuma atividade. Vai treinar hoje?",
+  "alerta_treino_urgente": true,
+  "hora_brasilia": 20
 };
