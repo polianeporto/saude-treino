@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Poliane | Saúde & Treino</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script src="data.js"></script>
   <style>
     :root {
       --bg: #0f0f13;
@@ -376,7 +377,7 @@
 <header>
   <h1>🏃‍♀️ <span>Poliane</span> · Saúde & Treino</h1>
   <p>Garmin Vivoactive 6 · Check-in diário às 9h</p>
-  <span class="badge">Atualizado em 23/06/2026</span>
+  <span class="badge" id="badge-atualizado">Atualizado em 23/06/2026</span>
 </header>
 
 <nav>
@@ -404,7 +405,7 @@
         </div>
         <span class="tag red">Sono Ruim</span>
       </div>
-      <div class="claude-frase">
+      <div class="claude-frase" id="frase-sono">
         "Você dormiu apenas 5h30 com quase zero REM — seu cérebro e músculo não tiveram tempo de recuperar de verdade. Hoje não é dia de forçar."
       </div>
       <div class="claude-detalhe">
@@ -470,46 +471,46 @@
     <div class="grid grid-4" style="margin-bottom:12px;">
       <div class="card purple">
         <div class="card-label">Body Battery</div>
-        <div class="card-value">45<span class="card-unit">/100</span></div>
-        <div class="card-sub">Máx hoje: 51 · Mín: 26</div>
-        <div class="mini-feedback red">⚠️ Abaixo do ideal — recuperar</div>
+        <div class="card-value" id="val-bb">45<span class="card-unit">/100</span></div>
+        <div class="card-sub" id="sub-bb">Máx: 51 · Mín: 26</div>
+        <div class="mini-feedback red" id="fb-bb">⚠️ Abaixo do ideal — recuperar</div>
       </div>
       <div class="card pink">
         <div class="card-label">Sono</div>
-        <div class="card-value">5,5<span class="card-unit">h</span></div>
-        <div class="card-sub">Score 56 · POOR</div>
-        <div class="mini-feedback red">⚠️ Insuficiente — meta é 8h</div>
+        <div class="card-value" id="val-sono">5,5<span class="card-unit">h</span></div>
+        <div class="card-sub" id="sub-sono">Score 56 · POOR</div>
+        <div class="mini-feedback red" id="fb-sono">⚠️ Insuficiente — meta é 8h</div>
       </div>
       <div class="card green">
         <div class="card-label">FC Repouso</div>
-        <div class="card-value">67<span class="card-unit">bpm</span></div>
+        <div class="card-value" id="val-fc">67<span class="card-unit">bpm</span></div>
         <div class="card-sub">Média 7 dias: 67</div>
-        <div class="mini-feedback green">✅ Saudável</div>
+        <div class="mini-feedback green" id="fb-fc">✅ Saudável</div>
       </div>
       <div class="card orange">
         <div class="card-label">Passos</div>
-        <div class="card-value">1.182</div>
-        <div class="card-sub">Meta: 9.020</div>
-        <div class="mini-feedback yellow">⚡ 13% da meta</div>
+        <div class="card-value" id="val-steps">1.182</div>
+        <div class="card-sub" id="sub-steps">Meta: 9.020</div>
+        <div class="mini-feedback yellow" id="fb-steps">⚡ 13% da meta</div>
       </div>
     </div>
 
     <div class="grid grid-3">
       <div class="card yellow">
         <div class="card-label">SpO2 Mínimo</div>
-        <div class="card-value">88<span class="card-unit">%</span></div>
-        <div class="card-sub">Média: 96%</div>
-        <div class="mini-feedback red">⚠️ Abaixo de 90% — investigar</div>
+        <div class="card-value" id="val-spo2">88<span class="card-unit">%</span></div>
+        <div class="card-sub" id="sub-spo2">Média: 96%</div>
+        <div class="mini-feedback red" id="fb-spo2">⚠️ Abaixo de 90% — investigar</div>
       </div>
       <div class="card purple">
         <div class="card-label">HRV</div>
-        <div class="card-value">26<span class="card-unit">ms</span></div>
-        <div class="card-sub">Status: Balanced</div>
+        <div class="card-value" id="val-hrv">26<span class="card-unit">ms</span></div>
+        <div class="card-sub" id="sub-hrv">Status: Balanced</div>
         <div class="mini-feedback yellow">⚡ Baixo para seu volume</div>
       </div>
       <div class="card green">
         <div class="card-label">Estresse</div>
-        <div class="card-value">29<span class="card-unit">/100</span></div>
+        <div class="card-value" id="val-estresse">29<span class="card-unit">/100</span></div>
         <div class="card-sub">Baixo-moderado</div>
         <div class="mini-feedback green">✅ Controlado</div>
       </div>
@@ -517,32 +518,58 @@
 
     <div style="margin-top:16px;">
       <div class="progress-wrap">
-        <div class="progress-label"><span>Passos hoje</span><span>1.182 / 9.020</span></div>
-        <div class="progress-bar"><div class="progress-fill" style="width:13%;background:var(--accent4);"></div></div>
+        <div class="progress-label"><span>Passos hoje</span><span id="bar-steps-label">1.182 / 9.020</span></div>
+        <div class="progress-bar"><div class="progress-fill" id="bar-steps" style="width:13%;background:var(--accent4);"></div></div>
       </div>
       <div class="progress-wrap" style="margin-top:10px;">
-        <div class="progress-label"><span>Sono (score)</span><span>56 / 100</span></div>
-        <div class="progress-bar"><div class="progress-fill" style="width:56%;background:var(--danger);"></div></div>
+        <div class="progress-label"><span>Sono (score)</span><span id="bar-sono-label">56 / 100</span></div>
+        <div class="progress-bar"><div class="progress-fill" id="bar-sono" style="width:56%;background:var(--danger);"></div></div>
       </div>
       <div class="progress-wrap" style="margin-top:10px;">
-        <div class="progress-label"><span>Body Battery</span><span>45 / 100</span></div>
-        <div class="progress-bar"><div class="progress-fill" style="width:45%;background:var(--accent);"></div></div>
+        <div class="progress-label"><span>Body Battery</span><span id="bar-bb-label">45 / 100</span></div>
+        <div class="progress-bar"><div class="progress-fill" id="bar-bb" style="width:45%;background:var(--accent);"></div></div>
       </div>
     </div>
 
     <div style="margin-top:16px;">
-      <div class="alert yellow">
-        <span class="alert-icon">⚠️</span>
+      <div class="alert yellow" id="orientacao-alert">
+        <span class="alert-icon" id="orientacao-icon">⚠️</span>
         <div class="alert-text">
-          <strong>Body Battery baixo — dia de recuperação</strong>
-          Treino de hoje: Bike leve 30–40 min · FC abaixo de 130 bpm · Sem musculação
+          <strong id="orientacao-titulo">Body Battery baixo — dia de recuperação</strong><br>
+          <span id="orientacao-texto">Treino de hoje: Bike leve 30–40 min · FC abaixo de 130 bpm · Sem musculação</span>
         </div>
       </div>
-      <div class="alert red" style="margin-top:8px;">
-        <span class="alert-icon">😴</span>
-        <div class="alert-text">
-          <strong>Sono REM quase zero esta noite</strong>
-          Apenas 15 min de REM (5%). Sua memória muscular e recuperação ficaram comprometidas. Durma mais cedo hoje — meta: 22h30.
+    </div>
+
+    <!-- SONO DETALHADO -->
+    <div style="margin-top:20px;">
+      <div style="font-size:0.78rem;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:10px;">Detalhes do sono</div>
+      <div class="grid grid-3">
+        <div class="card purple">
+          <div class="card-label">Sono Profundo</div>
+          <div class="card-value" style="font-size:1.4rem;" id="sono-profundo">70 min</div>
+          <div class="card-sub">Ideal: >60 min ✅</div>
+        </div>
+        <div class="card pink">
+          <div class="card-label">Sono REM</div>
+          <div class="card-value" style="font-size:1.4rem;" id="sono-rem">15 min</div>
+          <div class="card-sub">Ideal: 21–31% ⚠️</div>
+        </div>
+        <div class="card orange">
+          <div class="card-label">Vezes que Acordou</div>
+          <div class="card-value" style="font-size:1.4rem;" id="sono-acordou">2x</div>
+          <div class="card-sub">Ideal: 0–1x</div>
+        </div>
+      </div>
+      <div class="grid grid-2" style="margin-top:10px;">
+        <div class="card green">
+          <div class="card-label">SpO2 Médio (sono)</div>
+          <div class="card-value" style="font-size:1.4rem;" id="spo2-sono">97%</div>
+        </div>
+        <div class="card yellow">
+          <div class="card-label">SpO2 Mínimo (sono)</div>
+          <div class="card-value" style="font-size:1.4rem;" id="spo2-sono-min">88%</div>
+          <div class="card-sub">⚠️ Investigar apneia</div>
         </div>
       </div>
     </div>
@@ -896,6 +923,87 @@
       if (a.getAttribute('href') === '#' + current) a.classList.add('active');
     });
   });
+
+  // Preenche dados dinâmicos do Garmin
+  function set(id, val) {
+    const el = document.getElementById(id);
+    if (el) el.textContent = val;
+  }
+  function setClass(id, cls) {
+    const el = document.getElementById(id);
+    if (el) { el.className = el.className.replace(/\b(red|green|yellow)\b/g, ''); el.classList.add(cls); }
+  }
+  function setBar(id, pct, color) {
+    const el = document.getElementById(id);
+    if (el) { el.style.width = pct + '%'; el.style.background = color; }
+  }
+
+  if (typeof GARMIN !== 'undefined') {
+    const G = GARMIN;
+    // Badge atualizado
+    set('badge-atualizado', 'Atualizado ' + G.atualizado);
+
+    // Resumo Claude
+    set('frase-sono', '"' + G.frase_sono + '"');
+    set('orientacao-titulo', G.orientacao_titulo);
+    set('orientacao-texto', G.orientacao_texto);
+    const oriEl = document.getElementById('orientacao-alert');
+    if (oriEl) oriEl.className = 'alert ' + G.orientacao_cor;
+    const oriIcon = document.getElementById('orientacao-icon');
+    if (oriIcon) oriIcon.textContent = G.orientacao_icon;
+
+    // Cards hoje
+    set('val-bb', G.body_battery);
+    set('sub-bb', 'Máx: ' + G.bb_max + ' · Mín: ' + G.bb_min);
+    set('fb-bb', G.bb_feedback_msg);
+    setClass('fb-bb', G.bb_feedback_cor);
+
+    set('val-sono', G.sono_h);
+    set('sub-sono', 'Score ' + G.sono_score + ' · ' + G.sono_qualidade);
+    set('fb-sono', G.sono_feedback_msg);
+    setClass('fb-sono', G.sono_feedback_cor);
+
+    set('val-fc', G.fc_repouso);
+    set('fb-fc', G.fc_feedback_msg);
+    setClass('fb-fc', G.fc_feedback_cor);
+
+    set('val-steps', G.steps);
+    set('sub-steps', 'Meta: ' + G.steps_goal);
+    set('fb-steps', G.steps_feedback_msg);
+    setClass('fb-steps', G.steps_feedback_cor);
+
+    set('val-spo2', G.spo2_min);
+    set('sub-spo2', 'Média: ' + G.spo2_media + '%');
+    set('fb-spo2', G.spo2_feedback_msg);
+    setClass('fb-spo2', G.spo2_feedback_cor);
+
+    set('val-hrv', G.hrv_val);
+    set('sub-hrv', 'Status: ' + G.hrv_status);
+
+    set('val-estresse', G.estresse);
+
+    // Barras de progresso
+    setBar('bar-steps', Math.min(G.steps_pct, 100), 'var(--accent4)');
+    set('bar-steps-label', G.steps + ' / ' + G.steps_goal);
+
+    const sonoScoreNum = parseInt(G.sono_score) || 0;
+    const sonoColor = sonoScoreNum >= 80 ? 'var(--accent3)' : sonoScoreNum >= 65 ? 'var(--warn)' : 'var(--danger)';
+    setBar('bar-sono', sonoScoreNum, sonoColor);
+    set('bar-sono-label', G.sono_score + ' / 100');
+
+    const bbNum = parseInt(G.body_battery) || 0;
+    const bbColor = bbNum >= 60 ? 'var(--accent3)' : bbNum >= 40 ? 'var(--accent)' : 'var(--danger)';
+    setBar('bar-bb', bbNum, bbColor);
+    set('bar-bb-label', G.body_battery + ' / 100');
+
+    // Sono detalhado
+    set('sono-profundo', G.sono_profundo + ' min');
+    set('sono-rem', G.sono_rem + ' min');
+    set('sono-leve', G.sono_leve + ' min');
+    set('sono-acordou', G.acordou + 'x');
+    set('spo2-sono', G.spo2_sono + '%');
+    set('spo2-sono-min', G.spo2_sono_min + '%');
+  }
 </script>
 
 </body>
