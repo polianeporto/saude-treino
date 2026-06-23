@@ -1,5 +1,5 @@
 const GARMIN = {
-  "atualizado": "23/06/2026 às 19:02h",
+  "atualizado": "23/06/2026 às 22:08h",
   "hoje": "2026-06-23",
   "body_battery": 45,
   "bb_max": 51,
