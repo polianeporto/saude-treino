@@ -3,25 +3,25 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Poliane · Saúde & Treino</title>
+  <title>Poli · Saúde & Treino</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" />
   <script src="data.js"></script>
   <style>
     :root {
-      --bg: #0c0c10;
-      --card: #161620;
-      --card2: #1e1e2a;
-      --border: #26263a;
-      --accent: #7c6fcd;
-      --accent-light: #a99ef5;
-      --teal: #2db88a;
-      --pink: #d46b9a;
-      --orange: #e08c4a;
-      --text: #eeedf5;
-      --muted: #7a7990;
-      --danger: #e06060;
-      --warn: #c9a03a;
+      --bg: #0e0b0f;
+      --card: #181319;
+      --card2: #201722;
+      --border: #2d2030;
+      --accent: #c0608a;
+      --accent-light: #e897b8;
+      --teal: #3dbf96;
+      --pink: #e896c0;
+      --orange: #e0906a;
+      --text: #f5eff3;
+      --muted: #8a7a88;
+      --danger: #e06070;
+      --warn: #c9a040;
     }
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
@@ -45,8 +45,8 @@
       flex-shrink: 0;
       width: 48px;
       height: 48px;
-      background: rgba(124,111,205,0.12);
-      border: 1px solid rgba(124,111,205,0.25);
+      background: rgba(192,96,138,0.12);
+      border: 1px solid rgba(192,96,138,0.25);
       border-radius: 14px;
       display: flex;
       align-items: center;
@@ -66,8 +66,8 @@
       display: flex;
       align-items: center;
       gap: 6px;
-      background: rgba(124,111,205,0.1);
-      border: 1px solid rgba(124,111,205,0.2);
+      background: rgba(192,96,138,0.1);
+      border: 1px solid rgba(192,96,138,0.2);
       color: var(--accent-light);
       padding: 5px 12px;
       border-radius: 20px;
@@ -105,7 +105,7 @@
     }
     nav a i { font-size: 15px; }
     nav a:hover, nav a.active {
-      background: rgba(124,111,205,0.12);
+      background: rgba(192,96,138,0.12);
       color: var(--accent-light);
     }
 
@@ -245,8 +245,8 @@
     .claude-avatar {
       width: 38px;
       height: 38px;
-      background: rgba(124,111,205,0.12);
-      border: 1px solid rgba(124,111,205,0.2);
+      background: rgba(192,96,138,0.12);
+      border: 1px solid rgba(192,96,138,0.2);
       border-radius: 50%;
       display: flex;
       align-items: center;
@@ -282,7 +282,7 @@
     .tag.red { background: rgba(224,96,96,0.12); color: var(--danger); }
     .tag.yellow { background: rgba(201,160,58,0.12); color: var(--warn); }
     .tag.green { background: rgba(45,184,138,0.12); color: var(--teal); }
-    .tag.purple { background: rgba(124,111,205,0.12); color: var(--accent-light); }
+    .tag.purple { background: rgba(192,96,138,0.12); color: var(--accent-light); }
 
     /* FEEDBACK ITEMS */
     .feedback-item {
@@ -365,7 +365,7 @@
       padding: 3px 10px;
       border-radius: 20px;
     }
-    .day-badge.media { background: rgba(124,111,205,0.13); color: var(--accent-light); }
+    .day-badge.media { background: rgba(192,96,138,0.13); color: var(--accent-light); }
     .day-badge.alta { background: rgba(212,107,154,0.13); color: var(--pink); }
     .day-badge.baixa { background: rgba(45,184,138,0.13); color: var(--teal); }
     .treino-day-body { padding: 0 16px 14px; display: none; }
@@ -376,8 +376,8 @@
     tr:last-child td { border-bottom: none; }
     .cardio-info {
       margin-top: 10px;
-      background: rgba(124,111,205,0.07);
-      border: 1px solid rgba(124,111,205,0.18);
+      background: rgba(192,96,138,0.07);
+      border: 1px solid rgba(192,96,138,0.18);
       border-radius: 10px;
       padding: 9px 14px;
       font-size: 0.8rem;
@@ -416,7 +416,7 @@
       line-height: 1.55;
     }
     .regra-num {
-      background: rgba(124,111,205,0.13);
+      background: rgba(192,96,138,0.13);
       color: var(--accent-light);
       font-weight: 800;
       font-size: 0.72rem;
@@ -498,13 +498,13 @@
       color: var(--muted);
       line-height: 1.55;
       padding: 10px 12px;
-      background: rgba(124,111,205,0.05);
+      background: rgba(192,96,138,0.05);
       border-radius: 8px;
       border: 1px solid var(--border);
     }
     .instrucao-foto {
       background: var(--card);
-      border: 1px solid rgba(124,111,205,0.2);
+      border: 1px solid rgba(192,96,138,0.2);
       border-radius: 14px;
       padding: 18px;
       margin-bottom: 16px;
@@ -526,13 +526,14 @@
 <header>
   <div class="logo-mark">
     <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <polyline points="2,14 7,14 10,7 13,21 16,11 19,16 22,14 26,14"
-        stroke="#a99ef5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      <circle cx="26" cy="14" r="2" fill="#7c6fcd"/>
+      <polyline points="2,16 7,16 10,9 13,22 16,13 19,18 22,16 26,16"
+        stroke="#e897b8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M14 6 C14 6 12 4 10.5 4 C9 4 8 5.2 8 6.5 C8 8.5 10 10 14 12 C18 10 20 8.5 20 6.5 C20 5.2 19 4 17.5 4 C16 4 14 6 14 6Z"
+        fill="#e897b8" opacity="0.7"/>
     </svg>
   </div>
   <div class="header-text">
-    <h1><span>Poliane</span> · Saúde & Treino</h1>
+    <h1><span>Poli</span> · Saúde & Treino</h1>
     <p>Garmin Vivoactive 6 · Check-in diário às 9h</p>
   </div>
   <div class="badge-updated">
