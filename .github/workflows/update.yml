@@ -21,7 +21,7 @@ jobs:
           python-version: '3.11'
 
       - name: Instalar dependências
-        run: pip install garminconnect python-dotenv
+        run: pip install "garminconnect==0.3.6" python-dotenv
 
       - name: Atualizar dados
         env:
