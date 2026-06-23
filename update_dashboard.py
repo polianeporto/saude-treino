@@ -30,7 +30,9 @@ else:
     print("Autenticado via usuário/senha")
 
 today = datetime.date.today().isoformat()
-now = datetime.datetime.now().strftime("%d/%m/%Y às %H:%Mh")
+now_dt = datetime.datetime.now()
+now = now_dt.strftime("%d/%m/%Y às %H:%Mh")
+hora_atual = now_dt.hour  # hora local (Brasília via GitHub Actions = UTC-3... ajustar se necessário)
 
 # Busca dados
 stats = client.get_stats(today)
@@ -136,6 +138,61 @@ elif sono_score != "--":
 else:
     frase_sono = "Não foi possível ler os dados de sono desta noite."
 
+# ── Verifica se já fez atividade hoje ─────────────────────────────────────────
+# Plano semanal: dia da semana → tipo esperado e horário de lembrete
+PLANO_SEMANA = {
+    0: {"nome": "Posterior + Panturrilha", "tipo": "musculacao", "lembrar_apos": 17},  # Segunda
+    1: {"nome": "Costas + Bíceps",         "tipo": "musculacao", "lembrar_apos": 17},  # Terça
+    2: {"nome": "Quadríceps + Adução",      "tipo": "musculacao", "lembrar_apos": 17},  # Quarta
+    3: {"nome": "Peito + Ombro + Tríceps",  "tipo": "musculacao", "lembrar_apos": 17},  # Quinta
+    4: {"nome": "Glúteo ⭐",               "tipo": "musculacao", "lembrar_apos": 17},  # Sexta
+    5: {"nome": "Bike leve (descanso ativo)","tipo": "bike",      "lembrar_apos": 15},  # Sábado
+    6: {"nome": "Quadríceps Leve + Zona 2", "tipo": "musculacao", "lembrar_apos": 15},  # Domingo
+}
+
+dia_semana = now_dt.weekday()  # 0=segunda … 6=domingo
+treino_hoje = PLANO_SEMANA.get(dia_semana, {})
+treino_nome_hoje = treino_hoje.get("nome", "")
+lembrar_apos = treino_hoje.get("lembrar_apos", 17)
+
+# Hora de Brasília = UTC-3 (GitHub Actions roda em UTC)
+import os as _os
+hora_brasilia = hora_atual - 3  # ajuste simples; em produção usar pytz se necessário
+
+atividade_feita = False
+cardio_feito = False
+musculacao_feita = False
+minutos_ativos_hoje = 0
+
+try:
+    atividades_hoje = client.get_activities_by_date(today, today, activitytype=None)
+    for a in atividades_hoje:
+        tipo = (a.get("activityType", {}).get("typeKey") or "").lower()
+        duracao = a.get("duration", 0) or 0
+        if duracao > 300:  # mais de 5 min conta
+            atividade_feita = True
+            minutos_ativos_hoje += round(duracao / 60)
+            if any(k in tipo for k in ["cycling", "bike", "indoor_cycling"]):
+                cardio_feito = True
+            if any(k in tipo for k in ["strength", "fitness_equipment", "cardio"]):
+                musculacao_feita = True
+    print(f"   Atividades hoje: {len(atividades_hoje)} | musculação={musculacao_feita} | bike={cardio_feito}")
+except Exception as e:
+    print(f"   Aviso: não foi possível buscar atividades de hoje — {e}")
+
+# Define alerta de treino
+alerta_treino = ""
+alerta_treino_urgente = False
+
+if hora_brasilia >= lembrar_apos:
+    tipo_esperado = treino_hoje.get("tipo", "")
+    if tipo_esperado == "bike" and not cardio_feito and not atividade_feita:
+        alerta_treino = f"Ainda não fez a bike hoje! Vai lá — 20 a 30 minutos, FC abaixo de 130 bpm. Você consegue 💪"
+        alerta_treino_urgente = hora_brasilia >= 20
+    elif tipo_esperado == "musculacao" and not musculacao_feita and not atividade_feita:
+        alerta_treino = f"Treino de hoje: {treino_nome_hoje}. Você ainda não registrou nenhuma atividade. Vai treinar hoje?"
+        alerta_treino_urgente = hora_brasilia >= 20
+
 # Gera o data.js
 data = {
     "atualizado": now,
@@ -177,6 +234,14 @@ data = {
     "orientacao_icon": orientacao_icon,
     "orientacao_titulo": orientacao_titulo,
     "orientacao_texto": orientacao_texto,
+    "treino_nome_hoje": treino_nome_hoje,
+    "atividade_feita": atividade_feita,
+    "cardio_feito": cardio_feito,
+    "musculacao_feita": musculacao_feita,
+    "minutos_ativos_hoje": minutos_ativos_hoje,
+    "alerta_treino": alerta_treino,
+    "alerta_treino_urgente": alerta_treino_urgente,
+    "hora_brasilia": hora_brasilia,
 }
 
 with open("data.js", "w", encoding="utf-8") as f:

@@ -602,9 +602,14 @@
     <h1><span>Poli</span> · Saúde & Treino</h1>
     <p>Garmin Vivoactive 6 · Check-in diário às 9h</p>
   </div>
-  <div class="badge-updated">
-    <i class="ti ti-refresh"></i>
-    <span id="badge-atualizado">Atualizando...</span>
+  <div class="badge-updated" style="flex-direction:column;align-items:flex-end;gap:2px;">
+    <div style="display:flex;align-items:center;gap:5px;">
+      <i class="ti ti-refresh"></i>
+      <span id="badge-atualizado">Atualizando...</span>
+    </div>
+    <div style="font-size:0.72rem;color:var(--muted);font-weight:600;letter-spacing:0.5px;">
+      <span id="relogio-ao-vivo"></span>
+    </div>
   </div>
 </header>
 
@@ -620,6 +625,17 @@
 </nav>
 
 <main>
+
+  <!-- ALERTA DE TREINO -->
+  <div id="alerta-treino" style="display:none; margin:0 0 16px 0; border-radius:14px; padding:16px 18px; background:#fce8f0; border:1.5px solid #f0a8c0;">
+    <div style="display:flex;align-items:center;gap:10px;">
+      <i class="ti ti-bell-ringing" id="alerta-icon" style="font-size:24px;color:#c0527e;flex-shrink:0;"></i>
+      <div>
+        <div id="alerta-texto" style="font-weight:700;color:#c0527e;font-size:0.92rem;"></div>
+        <div id="alerta-sub" style="font-size:0.78rem;color:#9a5570;margin-top:2px;"></div>
+      </div>
+    </div>
+  </div>
 
   <!-- HOJE -->
   <section id="hoje">
@@ -1324,6 +1340,76 @@
 </script>
 
 <script>
+// ─── DATA/HORA DINÂMICA ─────────────────────────────────────────────────────
+(function() {
+  const DIAS = ["Domingo","Segunda-feira","Terça-feira","Quarta-feira","Quinta-feira","Sexta-feira","Sábado"];
+  const MESES = ["janeiro","fevereiro","março","abril","maio","junho","julho","agosto","setembro","outubro","novembro","dezembro"];
+  const now = new Date();
+  const dia = String(now.getDate()).padStart(2,"0");
+  const mes = String(now.getMonth()+1).padStart(2,"0");
+  const ano = now.getFullYear();
+  const dow = DIAS[now.getDay()];
+  const h = String(now.getHours()).padStart(2,"0");
+  const m = String(now.getMinutes()).padStart(2,"0");
+
+  // Atualiza header de data nos check-ins
+  document.querySelectorAll(".checkin-date").forEach(el => {
+    if (el.textContent.includes("23/06/2026") || el.textContent.includes("24/06/2026")) {
+      el.textContent = `${dia}/${mes}/${ano} — ${dow}`;
+    }
+  });
+
+  // Relógio ao vivo no topo
+  const relogio = document.getElementById("relogio-ao-vivo");
+  if (relogio) {
+    function tick() {
+      const n = new Date();
+      relogio.textContent = `${String(n.getHours()).padStart(2,"0")}:${String(n.getMinutes()).padStart(2,"0")}:${String(n.getSeconds()).padStart(2,"0")}`;
+    }
+    tick(); setInterval(tick, 1000);
+  }
+})();
+
+// ─── ALERTA DE TREINO ────────────────────────────────────────────────────────
+(function() {
+  if (typeof GARMIN === "undefined") return;
+  const alerta = GARMIN.alerta_treino || "";
+  if (!alerta) return;
+
+  const box = document.getElementById("alerta-treino");
+  const txt = document.getElementById("alerta-texto");
+  const sub = document.getElementById("alerta-sub");
+  const ico = document.getElementById("alerta-icon");
+
+  if (box && txt) {
+    txt.textContent = alerta;
+    const urgente = GARMIN.alerta_treino_urgente;
+    if (urgente) {
+      box.style.background = "#fde8ec";
+      box.style.borderColor = "#f08090";
+      ico.style.color = "#c0304a";
+      sub.textContent = "Está ficando tarde! Academia fecha logo — não pula não 💪";
+    } else {
+      sub.textContent = "Atualizado há menos de 1h com base nos seus dados Garmin.";
+    }
+    box.style.display = "block";
+
+    // Notificação do navegador
+    if ("Notification" in window) {
+      Notification.requestPermission().then(perm => {
+        if (perm === "granted") {
+          new Notification("Poli — Lembrete de treino 💪", {
+            body: alerta,
+            icon: "https://polianeporto.github.io/saude-treino/favicon.png",
+            tag: "treino-poli",
+            renotify: true,
+          });
+        }
+      });
+    }
+  }
+})();
+
 // ─── UPLOAD DE FOTOS ────────────────────────────────────────────────────────
 const REPO = "polianeporto/saude-treino";
 const BRANCH = "main";
