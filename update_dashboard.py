@@ -1,17 +1,33 @@
+# -*- coding: utf-8 -*-
 """
 Atualiza o dashboard com dados frescos do Garmin Connect.
 Roda via GitHub Actions a cada hora.
+Usa token OAuth salvo (GARMIN_TOKENS) para evitar bloqueio de IP.
 """
 import os
+import sys
 import json
 import datetime
 from garminconnect import Garmin
 
-EMAIL = os.environ["GARMIN_EMAIL"]
-PASSWORD = os.environ["GARMIN_PASSWORD"]
+# Força UTF-8 no terminal (Windows pode defaultar para cp1252)
+if sys.stdout.encoding and sys.stdout.encoding.lower() != "utf-8":
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+
+TOKENS_JSON = os.environ.get("GARMIN_TOKENS")
+EMAIL = os.environ.get("GARMIN_EMAIL", "")
+PASSWORD = os.environ.get("GARMIN_PASSWORD", "")
 
 client = Garmin(EMAIL, PASSWORD)
-client.login()
+
+if TOKENS_JSON:
+    # Usa token salvo — sem login interativo, evita bloqueio de IP
+    client.client.loads(TOKENS_JSON)
+    client._load_profile_and_settings()
+    print("Autenticado via token salvo")
+else:
+    client.login()
+    print("Autenticado via usuário/senha")
 
 today = datetime.date.today().isoformat()
 now = datetime.datetime.now().strftime("%d/%m/%Y às %H:%Mh")
@@ -26,7 +42,7 @@ try:
     hrv = client.get_hrv_data(today)
     hrv_val = hrv.get("hrvSummary", {}).get("lastNightAvg", "--")
     hrv_status = hrv.get("hrvSummary", {}).get("status", "--")
-except:
+except Exception:
     hrv_val = "--"
     hrv_status = "--"
 
