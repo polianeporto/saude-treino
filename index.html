@@ -513,6 +513,72 @@
     }
     .instrucao-foto strong { color: var(--accent-light); }
 
+    /* UPLOAD */
+    .upload-setup {
+      background: #fdf5f8;
+      border: 1px dashed #f0c8d8;
+      border-radius: 14px;
+      padding: 20px;
+      margin-bottom: 16px;
+      font-size: 0.83rem;
+    }
+    .upload-setup h3 { font-size: 0.88rem; font-weight: 700; color: var(--accent); margin-bottom: 10px; }
+    .upload-setup input[type=text], .upload-setup input[type=password] {
+      width: 100%; padding: 9px 12px; border: 1px solid var(--border);
+      border-radius: 8px; font-family: inherit; font-size: 0.82rem;
+      background: var(--card); color: var(--text); margin-top: 6px;
+    }
+    .btn-rosa {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: var(--accent); color: #fff; border: none;
+      padding: 9px 18px; border-radius: 10px; font-size: 0.82rem;
+      font-weight: 700; cursor: pointer; font-family: inherit;
+      transition: opacity 0.15s; margin-top: 10px;
+    }
+    .btn-rosa:hover { opacity: 0.85; }
+    .btn-rosa i { font-size: 16px; }
+    .btn-outline {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: transparent; color: var(--accent);
+      border: 1.5px solid var(--accent);
+      padding: 8px 16px; border-radius: 10px; font-size: 0.82rem;
+      font-weight: 700; cursor: pointer; font-family: inherit;
+      transition: all 0.15s; margin-top: 10px;
+    }
+    .btn-outline:hover { background: #fce8f0; }
+
+    .upload-area {
+      border: 2px dashed #f0c0d4;
+      border-radius: 12px;
+      padding: 28px 16px;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color 0.15s, background 0.15s;
+      background: #fdf8fa;
+      margin: 12px 0;
+    }
+    .upload-area:hover, .upload-area.drag { border-color: var(--accent); background: #fce8f0; }
+    .upload-area i { font-size: 36px; color: var(--accent); opacity: 0.6; display: block; margin-bottom: 8px; }
+    .upload-area p { font-size: 0.82rem; color: var(--muted); }
+    .upload-area input { display: none; }
+
+    .upload-preview {
+      width: 100%; border-radius: 10px; margin-top: 10px;
+      display: none; object-fit: cover; max-height: 320px;
+    }
+    .upload-status {
+      font-size: 0.78rem; margin-top: 8px; padding: 6px 10px;
+      border-radius: 8px; display: none;
+    }
+    .upload-status.ok { background: #e0f5ee; color: var(--teal); }
+    .upload-status.err { background: #fde8ec; color: var(--danger); }
+    .upload-status.loading { background: #fdf3d8; color: var(--warn); }
+
+    .foto-real {
+      width: 100%; border-radius: 10px; object-fit: cover; max-height: 260px;
+    }
+    .foto-data { font-size: 0.7rem; color: var(--muted); margin-top: 4px; }
+
     footer {
       text-align: center;
       padding: 30px 16px 0;
@@ -900,6 +966,24 @@
       <strong>Dica:</strong> foto sempre no mesmo horário, mesma iluminação, mesma posição. Lateral e frontal para membros inferiores.
     </div>
 
+    <!-- CONFIG TOKEN -->
+    <div id="upload-config" class="upload-setup" style="display:none">
+      <h3><i class="ti ti-key" style="vertical-align:-2px;margin-right:6px;"></i>Configure o upload de fotos</h3>
+      <p style="color:var(--muted);margin-bottom:10px;">Para salvar fotos diretamente no seu repositório, insira um <strong>Personal Access Token</strong> do GitHub com permissão <code>contents: write</code> no repositório <code>saude-treino</code>.</p>
+      <p style="color:var(--muted);margin-bottom:6px;">Acesse: GitHub → Settings → Developer settings → Personal access tokens (classic) → <em>Generate new token</em> → marque <strong>repo</strong>.</p>
+      <input type="password" id="gh-token-input" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" autocomplete="off">
+      <br>
+      <button class="btn-rosa" onclick="salvarToken()"><i class="ti ti-check"></i> Salvar token</button>
+      <button class="btn-outline" onclick="document.getElementById('upload-config').style.display='none'" style="margin-left:8px;">Cancelar</button>
+    </div>
+
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+      <p style="font-size:0.8rem;color:var(--muted);margin:0;">Fotos salvas no GitHub · ficam no histórico permanentemente</p>
+      <button class="btn-outline" onclick="abrirConfig()" style="font-size:0.75rem;padding:6px 12px;margin:0;">
+        <i class="ti ti-settings"></i> Configurar token
+      </button>
+    </div>
+
     <!-- GRUPOS MUSCULARES -->
     <div class="grupo-grid">
 
@@ -908,13 +992,17 @@
           <i class="ti ti-legs"></i>
           <div>
             <div class="grupo-nome">Glúteo</div>
-            <div class="grupo-data">Sexta-feira · Sem registro</div>
+            <div class="grupo-data" id="data-gluteo">Sexta-feira · Sem registro</div>
           </div>
         </div>
-        <div class="foto-placeholder">
+        <div class="upload-area" onclick="triggerUpload('gluteo')" ondragover="dragOver(event,this)" ondragleave="dragLeave(this)" ondrop="dropFile(event,'gluteo',this)">
           <i class="ti ti-camera-plus"></i>
-          Envie uma foto após o treino de sexta para análise
+          <p>Toque para escolher ou arraste uma foto</p>
+          <input type="file" id="file-gluteo" accept="image/*" capture="environment" onchange="uploadFoto('gluteo',this)">
         </div>
+        <img id="img-gluteo" class="upload-preview" alt="Glúteo">
+        <p class="foto-data" id="legenda-gluteo"></p>
+        <div class="upload-status" id="status-gluteo"></div>
         <div class="analise-placeholder">Nenhuma análise ainda. Mande uma foto e eu avalio evolução de definição, simetria e retenção de líquido.</div>
       </div>
 
@@ -922,14 +1010,18 @@
         <div class="grupo-header">
           <i class="ti ti-legs"></i>
           <div>
-            <div class="grupo-nome">Quadríceps + Interno da coxa</div>
-            <div class="grupo-data">Segunda/Domingo · Sem registro</div>
+            <div class="grupo-nome">Quadríceps + Interno</div>
+            <div class="grupo-data" id="data-quad">Segunda/Domingo · Sem registro</div>
           </div>
         </div>
-        <div class="foto-placeholder">
+        <div class="upload-area" onclick="triggerUpload('quad')" ondragover="dragOver(event,this)" ondragleave="dragLeave(this)" ondrop="dropFile(event,'quad',this)">
           <i class="ti ti-camera-plus"></i>
-          Envie foto da frente e lateral da coxa após treino
+          <p>Toque para escolher ou arraste uma foto</p>
+          <input type="file" id="file-quad" accept="image/*" capture="environment" onchange="uploadFoto('quad',this)">
         </div>
+        <img id="img-quad" class="upload-preview" alt="Quadríceps">
+        <p class="foto-data" id="legenda-quad"></p>
+        <div class="upload-status" id="status-quad"></div>
         <div class="analise-placeholder">Foco especial no interno da coxa (adução 4x). Análise de definição e redução de gordura localizada.</div>
       </div>
 
@@ -938,13 +1030,17 @@
           <i class="ti ti-legs"></i>
           <div>
             <div class="grupo-nome">Posterior + Panturrilha</div>
-            <div class="grupo-data">Quarta-feira · Sem registro</div>
+            <div class="grupo-data" id="data-post">Quarta-feira · Sem registro</div>
           </div>
         </div>
-        <div class="foto-placeholder">
+        <div class="upload-area" onclick="triggerUpload('posterior')" ondragover="dragOver(event,this)" ondragleave="dragLeave(this)" ondrop="dropFile(event,'posterior',this)">
           <i class="ti ti-camera-plus"></i>
-          Foto de costas da perna após o treino de quarta
+          <p>Toque para escolher ou arraste uma foto</p>
+          <input type="file" id="file-posterior" accept="image/*" capture="environment" onchange="uploadFoto('posterior',this)">
         </div>
+        <img id="img-posterior" class="upload-preview" alt="Posterior">
+        <p class="foto-data" id="legenda-posterior"></p>
+        <div class="upload-status" id="status-posterior"></div>
         <div class="analise-placeholder">Avaliação do stiff e flexora. Análise da definição do bíceps femoral e inserção do glúteo.</div>
       </div>
 
@@ -953,13 +1049,17 @@
           <i class="ti ti-arm"></i>
           <div>
             <div class="grupo-nome">Superior (costas, ombro)</div>
-            <div class="grupo-data">Terça/Quinta · Sem registro</div>
+            <div class="grupo-data" id="data-sup">Terça/Quinta · Sem registro</div>
           </div>
         </div>
-        <div class="foto-placeholder">
+        <div class="upload-area" onclick="triggerUpload('superior')" ondragover="dragOver(event,this)" ondragleave="dragLeave(this)" ondrop="dropFile(event,'superior',this)">
           <i class="ti ti-camera-plus"></i>
-          Foto de costas e ombros após treino superior
+          <p>Toque para escolher ou arraste uma foto</p>
+          <input type="file" id="file-superior" accept="image/*" capture="environment" onchange="uploadFoto('superior',this)">
         </div>
+        <img id="img-superior" class="upload-preview" alt="Superior">
+        <p class="foto-data" id="legenda-superior"></p>
+        <div class="upload-status" id="status-superior"></div>
         <div class="analise-placeholder">Análise de postura, abertura de costas e definição de ombro — importante para proporção corporal.</div>
       </div>
 
@@ -1221,6 +1321,151 @@
     set('spo2-sono', G.spo2_sono + '%');
     set('spo2-sono-min', G.spo2_sono_min + '%');
   }
+</script>
+
+<script>
+// ─── UPLOAD DE FOTOS ────────────────────────────────────────────────────────
+const REPO = "polianeporto/saude-treino";
+const BRANCH = "main";
+const GH_API = "https://api.github.com";
+const GRUPOS = ["gluteo","quad","posterior","superior"];
+
+function getToken() { return localStorage.getItem("gh_token") || ""; }
+function salvarToken() {
+  const t = document.getElementById("gh-token-input").value.trim();
+  if (!t) return alert("Insira o token.");
+  localStorage.setItem("gh_token", t);
+  document.getElementById("upload-config").style.display = "none";
+  alert("Token salvo! Agora pode enviar fotos.");
+}
+function abrirConfig() {
+  const cfg = document.getElementById("upload-config");
+  cfg.style.display = cfg.style.display === "none" ? "block" : "none";
+  const t = getToken();
+  if (t) document.getElementById("gh-token-input").value = t;
+}
+
+function triggerUpload(grupo) {
+  document.getElementById("file-" + grupo).click();
+}
+
+function setStatus(grupo, msg, tipo) {
+  const el = document.getElementById("status-" + grupo);
+  el.textContent = msg;
+  el.className = "upload-status " + tipo;
+  el.style.display = msg ? "block" : "none";
+}
+
+function showPreview(grupo, dataUrl, legenda) {
+  const img = document.getElementById("img-" + grupo);
+  img.src = dataUrl;
+  img.style.display = "block";
+  const leg = document.getElementById("legenda-" + grupo);
+  if (leg) { leg.textContent = legenda; }
+  const dataEl = document.getElementById("data-" + grupo);
+  if (dataEl) { dataEl.textContent = legenda; }
+  localStorage.setItem("foto_" + grupo, dataUrl);
+  localStorage.setItem("foto_" + grupo + "_legenda", legenda);
+}
+
+function loadSavedPhotos() {
+  GRUPOS.forEach(g => {
+    const saved = localStorage.getItem("foto_" + g);
+    const leg   = localStorage.getItem("foto_" + g + "_legenda") || "";
+    if (saved) showPreview(g, saved, leg);
+  });
+}
+
+function toBase64(file) {
+  return new Promise((res, rej) => {
+    const r = new FileReader();
+    r.onload = () => res(r.result.split(",")[1]);
+    r.onerror = rej;
+    r.readAsDataURL(file);
+  });
+}
+
+async function uploadFoto(grupo, input) {
+  const file = input.files[0];
+  if (!file) return;
+  const token = getToken();
+  if (!token) {
+    abrirConfig();
+    return;
+  }
+
+  const now = new Date();
+  const pad = n => String(n).padStart(2, "0");
+  const dateStr = `${now.getFullYear()}-${pad(now.getMonth()+1)}-${pad(now.getDate())}`;
+  const timeStr = `${pad(now.getHours())}${pad(now.getMinutes())}`;
+  const ext = file.name.split(".").pop() || "jpg";
+  const path = `photos/${grupo}/${dateStr}_${timeStr}.${ext}`;
+  const legenda = `Enviada em ${pad(now.getDate())}/${pad(now.getMonth()+1)}/${now.getFullYear()} às ${pad(now.getHours())}:${pad(now.getMinutes())}`;
+
+  setStatus(grupo, "Enviando foto…", "loading");
+
+  try {
+    const b64 = await toBase64(file);
+
+    // show preview immediately
+    const dataUrl = URL.createObjectURL(file);
+    showPreview(grupo, dataUrl, legenda);
+
+    // check if file already exists (to get SHA for update)
+    let sha = undefined;
+    try {
+      const check = await fetch(`${GH_API}/repos/${REPO}/contents/${path}`, {
+        headers: { Authorization: "token " + token }
+      });
+      if (check.ok) { const j = await check.json(); sha = j.sha; }
+    } catch {}
+
+    const body = {
+      message: `foto: progresso ${grupo} ${dateStr}`,
+      content: b64,
+      branch: BRANCH,
+    };
+    if (sha) body.sha = sha;
+
+    const res = await fetch(`${GH_API}/repos/${REPO}/contents/${path}`, {
+      method: "PUT",
+      headers: {
+        Authorization: "token " + token,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    });
+
+    if (res.ok) {
+      setStatus(grupo, "✓ Foto salva no repositório!", "ok");
+      // persist base64 preview
+      const reader = new FileReader();
+      reader.onload = () => {
+        localStorage.setItem("foto_" + grupo, reader.result);
+        localStorage.setItem("foto_" + grupo + "_legenda", legenda);
+      };
+      reader.readAsDataURL(file);
+    } else {
+      const err = await res.json();
+      setStatus(grupo, "Erro: " + (err.message || res.status), "err");
+    }
+  } catch (e) {
+    setStatus(grupo, "Erro de conexão: " + e.message, "err");
+  }
+}
+
+function dragOver(e, el) { e.preventDefault(); el.classList.add("drag"); }
+function dragLeave(el) { el.classList.remove("drag"); }
+function dropFile(e, grupo, el) {
+  e.preventDefault();
+  el.classList.remove("drag");
+  const file = e.dataTransfer.files[0];
+  if (!file) return;
+  const fakeInput = { files: [file] };
+  uploadFoto(grupo, fakeInput);
+}
+
+loadSavedPhotos();
 </script>
 
 </body>
