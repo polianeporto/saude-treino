@@ -293,6 +293,76 @@
       margin-top: 1px;
     }
 
+    /* CLAUDE BOX */
+    .claude-box {
+      background: linear-gradient(135deg, #1a1a2e 0%, #1e1a2e 100%);
+      border: 1px solid rgba(167,139,250,0.25);
+      border-radius: 16px;
+      padding: 20px;
+    }
+    .claude-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+    .claude-avatar {
+      font-size: 1.5rem;
+      width: 40px;
+      height: 40px;
+      background: rgba(167,139,250,0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .claude-title { font-size: 0.9rem; font-weight: 700; }
+    .claude-date { font-size: 0.72rem; color: var(--muted); margin-top: 2px; }
+    .claude-frase {
+      font-size: 1rem;
+      font-style: italic;
+      color: var(--accent);
+      line-height: 1.6;
+      border-left: 3px solid var(--accent);
+      padding-left: 14px;
+      margin-bottom: 12px;
+    }
+    .claude-detalhe {
+      font-size: 0.78rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* FEEDBACK ITEMS */
+    .feedback-item {
+      display: flex;
+      gap: 12px;
+      padding: 12px 14px;
+      border-radius: 12px;
+      font-size: 0.83rem;
+      margin-bottom: 8px;
+      line-height: 1.5;
+      align-items: flex-start;
+    }
+    .feedback-item span { font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
+    .feedback-item.green { background: rgba(52,211,153,0.08); border: 1px solid rgba(52,211,153,0.2); }
+    .feedback-item.yellow { background: rgba(251,191,36,0.08); border: 1px solid rgba(251,191,36,0.2); }
+    .feedback-item.red { background: rgba(248,113,113,0.08); border: 1px solid rgba(248,113,113,0.2); }
+
+    /* MINI FEEDBACK */
+    .mini-feedback {
+      font-size: 0.7rem;
+      font-weight: 600;
+      margin-top: 8px;
+      padding: 3px 8px;
+      border-radius: 6px;
+      display: inline-block;
+    }
+    .mini-feedback.red { background: rgba(248,113,113,0.15); color: var(--danger); }
+    .mini-feedback.green { background: rgba(52,211,153,0.15); color: var(--accent3); }
+    .mini-feedback.yellow { background: rgba(251,191,36,0.15); color: var(--warn); }
+
     footer {
       text-align: center;
       padding: 30px 16px 0;
@@ -310,7 +380,8 @@
 </header>
 
 <nav>
-  <a href="#hoje" class="active">🏠 Hoje</a>
+  <a href="#resumo" class="active">✨ Resumo</a>
+  <a href="#hoje">🏠 Hoje</a>
   <a href="#ficha">💪 Ficha</a>
   <a href="#checkins">📅 Check-ins</a>
   <a href="#saude">❤️ Saúde</a>
@@ -319,6 +390,78 @@
 </nav>
 
 <main>
+
+  <!-- RESUMO CLAUDE -->
+  <section id="resumo">
+    <h2>🤖 Resumo do Claude</h2>
+
+    <div class="claude-box">
+      <div class="claude-header">
+        <span class="claude-avatar">✨</span>
+        <div>
+          <div class="claude-title">Análise da última noite</div>
+          <div class="claude-date">23/06/2026</div>
+        </div>
+        <span class="tag red">Sono Ruim</span>
+      </div>
+      <div class="claude-frase">
+        "Você dormiu apenas 5h30 com quase zero REM — seu cérebro e músculo não tiveram tempo de recuperar de verdade. Hoje não é dia de forçar."
+      </div>
+      <div class="claude-detalhe">
+        Sono REM: apenas 15 min (5% do total — ideal é 21–31%) · SpO2 mínimo: 88% · Body Battery ao acordar: 51 · Estresse médio durante o sono: 26
+      </div>
+    </div>
+
+    <div class="claude-box" style="margin-top:12px;">
+      <div class="claude-header">
+        <span class="claude-avatar">📈</span>
+        <div>
+          <div class="claude-title">Análise das últimas semanas</div>
+          <div class="claude-date">25/05 → 23/06/2026</div>
+        </div>
+        <span class="tag yellow">Atenção</span>
+      </div>
+      <div class="claude-frase">
+        "Você treina todos os dias com disciplina invejável — mas seu corpo está acumulando débito de recuperação há semanas. O motor é bom, mas está superaquecendo."
+      </div>
+      <div class="claude-detalhe">
+        Média de sono: 7,1h · Score médio: 68/100 · Body Battery abaixo de 20 em 4 dos últimos 7 dias · SpO2 abaixo de 90% em quase todas as noites · Noites com 0 de sono REM: 1 · Noites com menos de 20 min de REM: 5
+      </div>
+    </div>
+
+    <div style="margin-top:16px;">
+      <div style="font-size:0.78rem;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:10px;">Feedbacks rápidos</div>
+
+      <div class="feedback-item green">
+        <span>💪</span>
+        <div><strong>Consistência de treino impecável</strong> — você treinou todos os dias das últimas 4 semanas. Isso é raro e merece reconhecimento.</div>
+      </div>
+      <div class="feedback-item green">
+        <span>❤️</span>
+        <div><strong>FC de repouso saudável</strong> — 66–67 bpm é sinal de boa saúde cardiovascular. Resultado direto do seu trabalho.</div>
+      </div>
+      <div class="feedback-item green">
+        <span>🫁</span>
+        <div><strong>VO2 Max de 45–47</strong> — capacidade aeróbica acima da média para mulheres adultas. Continue.</div>
+      </div>
+      <div class="feedback-item yellow">
+        <span>🌙</span>
+        <div><strong>Treinos noturnos frequentes</strong> — musculação às 22h, corrida às 19h. Isso prejudica o sono diretamente. Antecipar para antes das 18h mudaria muito a qualidade da recuperação.</div>
+      </div>
+      <div class="feedback-item yellow">
+        <span>🏃‍♀️</span>
+        <div><strong>Todas as corridas em zona máxima</strong> — FC média de 163–177 em todos os treinos de corrida. Sem zona 2, você não desenvolve base aeróbica e a queima de gordura fica comprometida.</div>
+      </div>
+      <div class="feedback-item red">
+        <span>😴</span>
+        <div><strong>SpO2 crônico abaixo de 90%</strong> — padrão consistente em 30 noites. Não é margem de erro do relógio. Agendar polissonografia é prioridade de saúde.</div>
+      </div>
+      <div class="feedback-item red">
+        <span>🔋</span>
+        <div><strong>Sem descanso estruturado</strong> — 7 dias de treino consecutivos toda semana. Sem descanso o corpo não supera o estímulo, ele quebra. Sábado agora é sagrado.</div>
+      </div>
+    </div>
+  </section>
 
   <!-- HOJE -->
   <section id="hoje">
@@ -329,21 +472,25 @@
         <div class="card-label">Body Battery</div>
         <div class="card-value">45<span class="card-unit">/100</span></div>
         <div class="card-sub">Máx hoje: 51 · Mín: 26</div>
+        <div class="mini-feedback red">⚠️ Abaixo do ideal — recuperar</div>
       </div>
       <div class="card pink">
         <div class="card-label">Sono</div>
         <div class="card-value">5,5<span class="card-unit">h</span></div>
         <div class="card-sub">Score 56 · POOR</div>
+        <div class="mini-feedback red">⚠️ Insuficiente — meta é 8h</div>
       </div>
       <div class="card green">
         <div class="card-label">FC Repouso</div>
         <div class="card-value">67<span class="card-unit">bpm</span></div>
         <div class="card-sub">Média 7 dias: 67</div>
+        <div class="mini-feedback green">✅ Saudável</div>
       </div>
       <div class="card orange">
         <div class="card-label">Passos</div>
         <div class="card-value">1.182</div>
         <div class="card-sub">Meta: 9.020</div>
+        <div class="mini-feedback yellow">⚡ 13% da meta</div>
       </div>
     </div>
 
@@ -352,23 +499,34 @@
         <div class="card-label">SpO2 Mínimo</div>
         <div class="card-value">88<span class="card-unit">%</span></div>
         <div class="card-sub">Média: 96%</div>
+        <div class="mini-feedback red">⚠️ Abaixo de 90% — investigar</div>
       </div>
       <div class="card purple">
         <div class="card-label">HRV</div>
         <div class="card-value">26<span class="card-unit">ms</span></div>
         <div class="card-sub">Status: Balanced</div>
+        <div class="mini-feedback yellow">⚡ Baixo para seu volume</div>
       </div>
       <div class="card green">
         <div class="card-label">Estresse</div>
         <div class="card-value">29<span class="card-unit">/100</span></div>
         <div class="card-sub">Baixo-moderado</div>
+        <div class="mini-feedback green">✅ Controlado</div>
       </div>
     </div>
 
     <div style="margin-top:16px;">
       <div class="progress-wrap">
-        <div class="progress-label"><span>Passos</span><span>1.182 / 9.020</span></div>
+        <div class="progress-label"><span>Passos hoje</span><span>1.182 / 9.020</span></div>
         <div class="progress-bar"><div class="progress-fill" style="width:13%;background:var(--accent4);"></div></div>
+      </div>
+      <div class="progress-wrap" style="margin-top:10px;">
+        <div class="progress-label"><span>Sono (score)</span><span>56 / 100</span></div>
+        <div class="progress-bar"><div class="progress-fill" style="width:56%;background:var(--danger);"></div></div>
+      </div>
+      <div class="progress-wrap" style="margin-top:10px;">
+        <div class="progress-label"><span>Body Battery</span><span>45 / 100</span></div>
+        <div class="progress-bar"><div class="progress-fill" style="width:45%;background:var(--accent);"></div></div>
       </div>
     </div>
 
@@ -378,6 +536,13 @@
         <div class="alert-text">
           <strong>Body Battery baixo — dia de recuperação</strong>
           Treino de hoje: Bike leve 30–40 min · FC abaixo de 130 bpm · Sem musculação
+        </div>
+      </div>
+      <div class="alert red" style="margin-top:8px;">
+        <span class="alert-icon">😴</span>
+        <div class="alert-text">
+          <strong>Sono REM quase zero esta noite</strong>
+          Apenas 15 min de REM (5%). Sua memória muscular e recuperação ficaram comprometidas. Durma mais cedo hoje — meta: 22h30.
         </div>
       </div>
     </div>
