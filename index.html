@@ -64,17 +64,16 @@
     .badge-updated {
       margin-left: auto;
       display: flex;
-      align-items: center;
+      align-items: flex-end;
       gap: 6px;
-      background: rgba(192,96,138,0.1);
-      border: 1px solid rgba(192,96,138,0.2);
       color: var(--accent-light);
-      padding: 5px 12px;
-      border-radius: 20px;
       font-size: 0.72rem;
       font-weight: 600;
       white-space: nowrap;
     }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    #btn-atualizar:hover { background: rgba(192,96,138,0.08) !important; }
+    #btn-atualizar:disabled { opacity: 0.6; cursor: not-allowed; }
 
     /* NAV */
     nav {
@@ -602,12 +601,12 @@
     <h1><span>Poli</span> · Saúde & Treino</h1>
     <p>Garmin Vivoactive 6 · Check-in diário às 9h</p>
   </div>
-  <div class="badge-updated" style="flex-direction:column;align-items:flex-end;gap:2px;">
-    <div style="display:flex;align-items:center;gap:5px;">
-      <i class="ti ti-refresh"></i>
+  <div class="badge-updated" style="flex-direction:column;align-items:flex-end;gap:4px;">
+    <button id="btn-atualizar" onclick="dispararAtualizacao()" title="Atualizar dados do Garmin agora" style="display:flex;align-items:center;gap:5px;background:none;border:1px solid var(--border);border-radius:8px;padding:5px 10px;cursor:pointer;font-family:inherit;font-size:0.78rem;color:var(--accent);font-weight:600;">
+      <i class="ti ti-refresh" id="icon-refresh"></i>
       <span id="badge-atualizado">Atualizando...</span>
-    </div>
-    <div style="font-size:0.72rem;color:var(--muted);font-weight:600;letter-spacing:0.5px;">
+    </button>
+    <div style="font-size:0.7rem;color:var(--muted);font-weight:600;letter-spacing:0.5px;">
       <span id="relogio-ao-vivo"></span>
     </div>
   </div>
@@ -1409,6 +1408,58 @@
     }
   }
 })();
+
+// ─── BOTÃO ATUALIZAR ─────────────────────────────────────────────────────────
+async function dispararAtualizacao() {
+  const token = getToken(); // reutiliza o token do GitHub já salvo
+  if (!token) {
+    abrirConfig();
+    alert("Configure o token do GitHub primeiro (mesmo usado para fotos).");
+    return;
+  }
+
+  const btn = document.getElementById("btn-atualizar");
+  const icon = document.getElementById("icon-refresh");
+  const label = document.getElementById("badge-atualizado");
+
+  btn.disabled = true;
+  icon.style.animation = "spin 1s linear infinite";
+  label.textContent = "Disparando...";
+
+  try {
+    const res = await fetch(
+      `https://api.github.com/repos/${REPO}/actions/workflows/update.yml/dispatches`,
+      {
+        method: "POST",
+        headers: {
+          Authorization: "token " + token,
+          "Content-Type": "application/json",
+          Accept: "application/vnd.github+json",
+        },
+        body: JSON.stringify({ ref: BRANCH }),
+      }
+    );
+
+    if (res.status === 204) {
+      label.textContent = "Rodando... (~1 min)";
+      icon.style.animation = "spin 1s linear infinite";
+      // Aguarda ~75s e recarrega a página para pegar o data.js novo
+      setTimeout(() => {
+        label.textContent = "Recarregando...";
+        location.reload();
+      }, 75000);
+    } else {
+      const err = await res.json().catch(() => ({}));
+      label.textContent = "Erro: " + (err.message || res.status);
+      btn.disabled = false;
+      icon.style.animation = "";
+    }
+  } catch (e) {
+    label.textContent = "Sem conexão";
+    btn.disabled = false;
+    icon.style.animation = "";
+  }
+}
 
 // ─── UPLOAD DE FOTOS ────────────────────────────────────────────────────────
 const REPO = "polianeporto/saude-treino";
