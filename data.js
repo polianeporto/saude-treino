@@ -1,5 +1,5 @@
 const GARMIN = {
-  "atualizado": "01/07/2026 às 21:22h",
+  "atualizado": "01/07/2026 às 23:07h",
   "hoje": "2026-07-01",
   "body_battery": 18,
   "bb_max": 31,
@@ -44,6 +44,6 @@ const GARMIN = {
   "musculacao_feita": false,
   "minutos_ativos_hoje": 0,
   "alerta_treino": "Treino de hoje: Quadríceps + Adução. Você ainda não registrou nenhuma atividade. Vai treinar hoje?",
-  "alerta_treino_urgente": false,
-  "hora_brasilia": 18
+  "alerta_treino_urgente": true,
+  "hora_brasilia": 20
 };
