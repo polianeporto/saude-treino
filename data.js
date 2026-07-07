@@ -1,14 +1,14 @@
 const GARMIN = {
-  "atualizado": "07/07/2026 às 10:21h",
+  "atualizado": "07/07/2026 às 13:14h",
   "hoje": "2026-07-07",
   "body_battery": 25,
   "bb_max": 25,
   "bb_min": 5,
   "bb_feedback_cor": "red",
   "bb_feedback_msg": "⚠️ Baixo — treino leve",
-  "steps": "354",
+  "steps": "923",
   "steps_goal": "8.190",
-  "steps_pct": 4,
+  "steps_pct": 11,
   "steps_feedback_cor": "red",
   "steps_feedback_msg": "⚠️ Muito parada hoje",
   "fc_repouso": 73,
@@ -21,7 +21,7 @@ const GARMIN = {
   "spo2_feedback_msg": "⚡ Levemente baixo",
   "hrv_val": 26,
   "hrv_status": "LOW",
-  "calorias": 20.0,
+  "calorias": 34.0,
   "sono_h": 5.3,
   "sono_score": 48,
   "sono_qualidade": "POOR",
@@ -45,5 +45,5 @@ const GARMIN = {
   "minutos_ativos_hoje": 0,
   "alerta_treino": "",
   "alerta_treino_urgente": false,
-  "hora_brasilia": 7
+  "hora_brasilia": 10
 };
