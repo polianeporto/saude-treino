@@ -1,12 +1,12 @@
 const GARMIN = {
-  "atualizado": "07/07/2026 às 16:23h",
+  "atualizado": "07/07/2026 às 18:57h",
   "hoje": "2026-07-07",
-  "body_battery": 13,
+  "body_battery": 12,
   "bb_max": 25,
   "bb_min": 5,
   "bb_feedback_cor": "red",
   "bb_feedback_msg": "🔴 Crítico — só recuperação hoje",
-  "steps": "1.944",
+  "steps": "1.962",
   "steps_goal": "8.190",
   "steps_pct": 24,
   "steps_feedback_cor": "red",
@@ -45,5 +45,5 @@ const GARMIN = {
   "minutos_ativos_hoje": 0,
   "alerta_treino": "",
   "alerta_treino_urgente": false,
-  "hora_brasilia": 13
+  "hora_brasilia": 15
 };
