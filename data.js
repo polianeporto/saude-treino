@@ -1,5 +1,5 @@
 const GARMIN = {
-  "atualizado": "11/07/2026 às 20:02h",
+  "atualizado": "11/07/2026 às 21:42h",
   "hoje": "2026-07-11",
   "body_battery": 34,
   "bb_max": 57,
@@ -40,10 +40,10 @@ const GARMIN = {
   "orientacao_texto": "Sinais de recuperação incompleta. Musculação com carga reduzida · Cardio zona 2 · Sem corrida forte hoje.",
   "treino_nome_hoje": "Bike leve (descanso ativo)",
   "atividade_feita": true,
-  "cardio_feito": false,
+  "cardio_feito": true,
   "musculacao_feita": true,
-  "minutos_ativos_hoje": 55,
+  "minutos_ativos_hoje": 88,
   "alerta_treino": "",
   "alerta_treino_urgente": false,
-  "hora_brasilia": 17
+  "hora_brasilia": 18
 };
