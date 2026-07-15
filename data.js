@@ -1,5 +1,5 @@
 const GARMIN = {
-  "atualizado": "15/07/2026 às 17:10h",
+  "atualizado": "15/07/2026 às 19:01h",
   "hoje": "2026-07-15",
   "body_battery": 71,
   "bb_max": 76,
@@ -39,11 +39,11 @@ const GARMIN = {
   "orientacao_titulo": "Pode treinar! Siga a ficha do dia.",
   "orientacao_texto": "Body Battery e sono em bom nível. Siga a ficha semanal normalmente. Monitore a FC durante o treino.",
   "treino_nome_hoje": "Quadríceps + Adução",
-  "atividade_feita": false,
+  "atividade_feita": true,
   "cardio_feito": false,
-  "musculacao_feita": false,
-  "minutos_ativos_hoje": 0,
+  "musculacao_feita": true,
+  "minutos_ativos_hoje": 62,
   "alerta_treino": "",
   "alerta_treino_urgente": false,
-  "hora_brasilia": 14
+  "hora_brasilia": 16
 };
