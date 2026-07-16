@@ -1,5 +1,5 @@
 const GARMIN = {
-  "atualizado": "16/07/2026 às 14:54h",
+  "atualizado": "16/07/2026 às 16:13h",
   "hoje": "2026-07-16",
   "body_battery": 47,
   "bb_max": 54,
@@ -45,5 +45,5 @@ const GARMIN = {
   "minutos_ativos_hoje": 46,
   "alerta_treino": "",
   "alerta_treino_urgente": false,
-  "hora_brasilia": 11
+  "hora_brasilia": 13
 };
