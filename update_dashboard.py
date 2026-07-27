@@ -40,6 +40,36 @@ sleep_raw = client.get_sleep_data(today)
 sleep = sleep_raw.get("dailySleepDTO", {})
 scores = sleep.get("sleepScores", {})
 
+# ── Histórico de SpO2 das últimas 14 noites ───────────────────────────────────
+historico_spo2 = []
+for dias_atras in range(1, 15):
+    d = (datetime.date.today() - datetime.timedelta(days=dias_atras)).isoformat()
+    try:
+        sr = client.get_sleep_data(d)
+        dto = sr.get("dailySleepDTO", {})
+        spo2_med = dto.get("averageSpO2Value", None)
+        spo2_min = dto.get("lowestSpO2Value", None)
+        sono_score = (dto.get("sleepScores") or {}).get("overall", {}).get("value", None)
+        resp_min = dto.get("lowestRespirationValue", None)
+        if spo2_min is not None:
+            historico_spo2.append({
+                "data": d,
+                "spo2_med": spo2_med,
+                "spo2_min": spo2_min,
+                "sono_score": sono_score,
+                "resp_min": resp_min,
+                "alerta": spo2_min < 90,
+            })
+            print(f"   {d}: SpO2 min={spo2_min}% med={spo2_med}%")
+    except Exception as e:
+        print(f"   {d}: erro — {e}")
+
+# Calcula estatísticas do histórico
+mins = [n["spo2_min"] for n in historico_spo2 if n["spo2_min"] is not None]
+noites_abaixo_90 = sum(1 for v in mins if v < 90)
+spo2_min_absoluto = min(mins) if mins else "--"
+spo2_min_media = round(sum(mins) / len(mins), 1) if mins else "--"
+
 try:
     hrv = client.get_hrv_data(today)
     hrv_val = hrv.get("hrvSummary", {}).get("lastNightAvg", "--")
@@ -234,6 +264,10 @@ data = {
     "orientacao_icon": orientacao_icon,
     "orientacao_titulo": orientacao_titulo,
     "orientacao_texto": orientacao_texto,
+    "historico_spo2": historico_spo2,
+    "spo2_noites_abaixo_90": noites_abaixo_90,
+    "spo2_min_absoluto": spo2_min_absoluto,
+    "spo2_min_media": spo2_min_media,
     "treino_nome_hoje": treino_nome_hoje,
     "atividade_feita": atividade_feita,
     "cardio_feito": cardio_feito,

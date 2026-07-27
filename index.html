@@ -1105,10 +1105,44 @@
   <section id="saude">
     <div class="section-title"><i class="ti ti-heart-rate-monitor"></i> Pontos de saúde</div>
 
-    <div class="alert red">
-      <i class="ti ti-lungs"></i>
-      <div><strong>SpO2 noturno cronicamente abaixo de 90%</strong>
-      Em 30 noites analisadas, quase todas registraram SpO2 mínimo abaixo de 90%. Valor mais baixo: 81% (02/06). Investigar apneia do sono — agendar consulta com pneumologista ou otorrino e solicitar polissonografia.</div>
+    <!-- MONITOR SPO2 -->
+    <div style="background:var(--card);border:1.5px solid #f0a0b0;border-radius:14px;padding:18px 20px;margin-bottom:16px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:8px;">
+        <div style="display:flex;align-items:center;gap:8px;">
+          <i class="ti ti-lungs" style="font-size:20px;color:#c0304a;"></i>
+          <strong style="font-size:0.95rem;">Monitoramento SpO2 Noturno</strong>
+          <span style="font-size:0.72rem;background:#fde8ec;color:#c0304a;padding:2px 8px;border-radius:20px;font-weight:700;">ACOMPANHAMENTO APNEIA</span>
+        </div>
+        <div id="spo2-resumo" style="font-size:0.78rem;color:var(--muted);"></div>
+      </div>
+
+      <!-- ESTATÍSTICAS -->
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px;" id="spo2-stats">
+        <div style="background:var(--card2,#f5f0f4);border-radius:10px;padding:12px;text-align:center;">
+          <div style="font-size:1.4rem;font-weight:800;color:#c0304a;" id="stat-min-absoluto">--</div>
+          <div style="font-size:0.7rem;color:var(--muted);margin-top:2px;">Mínimo absoluto</div>
+        </div>
+        <div style="background:var(--card2,#f5f0f4);border-radius:10px;padding:12px;text-align:center;">
+          <div style="font-size:1.4rem;font-weight:800;color:#c07020;" id="stat-min-media">--</div>
+          <div style="font-size:0.7rem;color:var(--muted);margin-top:2px;">Média dos mínimos</div>
+        </div>
+        <div style="background:var(--card2,#f5f0f4);border-radius:10px;padding:12px;text-align:center;">
+          <div style="font-size:1.4rem;font-weight:800;color:#c0304a;" id="stat-noites-alerta">--</div>
+          <div style="font-size:0.7rem;color:var(--muted);margin-top:2px;">Noites abaixo 90%</div>
+        </div>
+      </div>
+
+      <!-- GRÁFICO DE BARRAS SPO2 -->
+      <div style="overflow-x:auto;">
+        <div id="spo2-chart" style="display:flex;align-items:flex-end;gap:5px;height:90px;min-width:320px;padding-bottom:24px;position:relative;"></div>
+      </div>
+      <div style="font-size:0.72rem;color:var(--muted);margin-top:6px;">
+        Linha vermelha = 90% · verde = normal · vermelho = abaixo de 90% · Atualiza a cada hora.
+      </div>
+
+      <div style="margin-top:14px;background:#fdf0f3;border-radius:10px;padding:12px 14px;font-size:0.8rem;color:#7a2030;line-height:1.6;">
+        <strong>Próximo passo:</strong> Agendar consulta com pneumologista ou otorrinolaringologista · Solicitar <strong>polissonografia</strong> · Esse histórico pode ser impresso e levado para o médico.
+      </div>
     </div>
 
     <div class="alert red">
@@ -1339,6 +1373,74 @@
 </script>
 
 <script>
+// ─── MONITOR SPO2 ────────────────────────────────────────────────────────────
+(function() {
+  if (typeof GARMIN === "undefined" || !GARMIN.historico_spo2) return;
+  const hist = [...GARMIN.historico_spo2].reverse(); // mais antigo → mais recente
+
+  // Estatísticas
+  const el = id => document.getElementById(id);
+  if (el("stat-min-absoluto")) el("stat-min-absoluto").textContent = GARMIN.spo2_min_absoluto + "%";
+  if (el("stat-min-media"))    el("stat-min-media").textContent    = GARMIN.spo2_min_media + "%";
+  if (el("stat-noites-alerta")) {
+    const n = GARMIN.spo2_noites_abaixo_90;
+    const total = hist.length;
+    el("stat-noites-alerta").textContent = n + "/" + total;
+  }
+  if (el("spo2-resumo")) {
+    const n = GARMIN.spo2_noites_abaixo_90;
+    el("spo2-resumo").textContent = "Últimas " + hist.length + " noites";
+  }
+
+  // Gráfico de barras
+  const chart = el("spo2-chart");
+  if (!chart || !hist.length) return;
+
+  const minVal = 75, maxVal = 100, chartH = 66;
+  const linha90 = Math.round((90 - minVal) / (maxVal - minVal) * chartH);
+
+  // Linha de referência 90%
+  const ref = document.createElement("div");
+  ref.style.cssText = `position:absolute;left:0;right:0;bottom:${linha90 + 24}px;border-top:1.5px dashed #e05060;z-index:2;`;
+  chart.style.position = "relative";
+  chart.appendChild(ref);
+
+  const barW = Math.max(18, Math.floor((chart.offsetWidth || 320) / hist.length) - 5);
+
+  hist.forEach(n => {
+    const val = n.spo2_min;
+    const med = n.spo2_med;
+    const h = Math.round((val - minVal) / (maxVal - minVal) * chartH);
+    const cor = val < 88 ? "#d03050" : val < 90 ? "#e07830" : "#2a9e6b";
+
+    // Formata data dd/mm
+    const parts = n.data.split("-");
+    const label = parts[2] + "/" + parts[1];
+
+    const wrap = document.createElement("div");
+    wrap.style.cssText = `display:flex;flex-direction:column;align-items:center;gap:2px;position:relative;z-index:3;`;
+    wrap.title = `${label} — mín: ${val}% · méd: ${med}%`;
+
+    const bar = document.createElement("div");
+    bar.style.cssText = `width:${barW}px;height:${h}px;background:${cor};border-radius:4px 4px 0 0;opacity:0.85;transition:opacity .2s;`;
+    bar.onmouseenter = () => bar.style.opacity = "1";
+    bar.onmouseleave = () => bar.style.opacity = "0.85";
+
+    const lbl = document.createElement("div");
+    lbl.style.cssText = `font-size:0.6rem;color:var(--muted);writing-mode:vertical-rl;transform:rotate(180deg);margin-top:2px;white-space:nowrap;`;
+    lbl.textContent = label;
+
+    const num = document.createElement("div");
+    num.style.cssText = `font-size:0.65rem;font-weight:700;color:${cor};`;
+    num.textContent = val + "%";
+
+    wrap.appendChild(num);
+    wrap.appendChild(bar);
+    wrap.appendChild(lbl);
+    chart.appendChild(wrap);
+  });
+})();
+
 // ─── DATA/HORA DINÂMICA ─────────────────────────────────────────────────────
 (function() {
   const DIAS = ["Domingo","Segunda-feira","Terça-feira","Quarta-feira","Quinta-feira","Sexta-feira","Sábado"];
