@@ -1513,10 +1513,14 @@
 
 // ─── BOTÃO ATUALIZAR ─────────────────────────────────────────────────────────
 async function dispararAtualizacao() {
-  const token = getToken(); // reutiliza o token do GitHub já salvo
+  const token = getToken();
   if (!token) {
-    abrirConfig();
-    alert("Configure o token do GitHub primeiro (mesmo usado para fotos).");
+    const label = document.getElementById("badge-atualizado");
+    if (label) label.textContent = "Configure o token primeiro →";
+    // Rola até a seção de progresso onde fica o botão de configurar token
+    const cfg = document.getElementById("progresso");
+    if (cfg) cfg.scrollIntoView({ behavior: "smooth" });
+    setTimeout(() => abrirConfig(), 600);
     return;
   }
 
