@@ -141,13 +141,13 @@ else:
 # ── Verifica se já fez atividade hoje ─────────────────────────────────────────
 # Plano semanal: dia da semana → tipo esperado e horário de lembrete
 PLANO_SEMANA = {
-    0: {"nome": "Posterior + Panturrilha", "tipo": "musculacao", "lembrar_apos": 17},  # Segunda
-    1: {"nome": "Costas + Bíceps",         "tipo": "musculacao", "lembrar_apos": 17},  # Terça
-    2: {"nome": "Quadríceps + Adução",      "tipo": "musculacao", "lembrar_apos": 17},  # Quarta
-    3: {"nome": "Peito + Ombro + Tríceps",  "tipo": "musculacao", "lembrar_apos": 17},  # Quinta
-    4: {"nome": "Glúteo ⭐",               "tipo": "musculacao", "lembrar_apos": 17},  # Sexta
-    5: {"nome": "Bike leve (descanso ativo)","tipo": "bike",      "lembrar_apos": 15},  # Sábado
-    6: {"nome": "Quadríceps Leve + Zona 2", "tipo": "musculacao", "lembrar_apos": 15},  # Domingo
+    0: {"nome": "Costas + Ombro",       "tipo": "musculacao", "lembrar_apos": 17},  # Segunda
+    1: {"nome": "Cardio Leve + Abs",    "tipo": "bike",       "lembrar_apos": 17},  # Terça
+    2: {"nome": "Quadríceps + Adução",  "tipo": "musculacao", "lembrar_apos": 17},  # Quarta
+    3: {"nome": "Bíceps + Peito",       "tipo": "musculacao", "lembrar_apos": 17},  # Quinta
+    4: {"nome": "Glúteos ★",            "tipo": "musculacao", "lembrar_apos": 17},  # Sexta
+    5: {"nome": "Descanso ou Livre",    "tipo": "livre",      "lembrar_apos": 99},  # Sábado
+    6: {"nome": "Quadríceps + Adução",  "tipo": "musculacao", "lembrar_apos": 15},  # Domingo
 }
 
 dia_semana = now_dt.weekday()  # 0=segunda … 6=domingo
