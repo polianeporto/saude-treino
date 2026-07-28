@@ -767,33 +767,25 @@
         <div class="claude-avatar"><i class="ti ti-moon"></i></div>
         <div>
           <div class="claude-title">Análise da última noite</div>
-          <div class="claude-date">23/06/2026</div>
+          <div class="claude-date" id="claude-date-noite">Carregando...</div>
         </div>
-        <span class="tag red">Sono Ruim</span>
+        <span class="tag" id="claude-tag-noite">–</span>
       </div>
-      <div class="claude-frase" id="frase-sono">
-        "Você dormiu apenas 5h30 com quase zero REM — seu cérebro e músculo não tiveram tempo de recuperar de verdade. Hoje não é dia de forçar."
-      </div>
-      <div class="claude-detalhe">
-        Sono REM: apenas 15 min (5% do total — ideal é 21–31%) · SpO2 mínimo: 88% · Body Battery ao acordar: 51 · Estresse médio durante o sono: 26
-      </div>
+      <div class="claude-frase" id="claude-frase-noite">Carregando análise...</div>
+      <div class="claude-detalhe" id="claude-detalhe-noite">–</div>
     </div>
 
     <div class="claude-box">
       <div class="claude-header">
         <div class="claude-avatar"><i class="ti ti-chart-line"></i></div>
         <div>
-          <div class="claude-title">Análise das últimas semanas</div>
-          <div class="claude-date">25/05 → 23/06/2026</div>
+          <div class="claude-title">Análise das últimas 7 noites</div>
+          <div class="claude-date" id="claude-date-semana">Carregando...</div>
         </div>
-        <span class="tag yellow">Atenção</span>
+        <span class="tag" id="claude-tag-semana">–</span>
       </div>
-      <div class="claude-frase">
-        "Você treina todos os dias com disciplina invejável — mas seu corpo está acumulando débito de recuperação há semanas. O motor é bom, mas está superaquecendo."
-      </div>
-      <div class="claude-detalhe">
-        Média de sono: 7,1h · Score médio: 68/100 · Body Battery abaixo de 20 em 4 dos últimos 7 dias · SpO2 abaixo de 90% em quase todas as noites · Noites com 0 de REM: 1 · Noites com menos de 20 min de REM: 5
-      </div>
+      <div class="claude-frase" id="claude-frase-semana">Carregando análise...</div>
+      <div class="claude-detalhe" id="claude-detalhe-semana">–</div>
     </div>
 
     <div style="margin-top:14px;">
@@ -1322,6 +1314,26 @@
     // Resumo pessoal
     const resumoEl = document.getElementById('resumo-personal');
     if (resumoEl && G.resumo_personal) resumoEl.textContent = G.resumo_personal;
+
+    // Cards Claude — análise noturna
+    set('claude-date-noite', G.data_hoje_fmt || G.hoje);
+    set('claude-frase-noite', G.frase_claude_noite || G.frase_sono);
+    set('claude-detalhe-noite', G.detalhe_noite);
+    const tagNoite = document.getElementById('claude-tag-noite');
+    if (tagNoite && G.tag_sono) {
+      tagNoite.textContent = G.tag_sono;
+      tagNoite.className = 'tag ' + (G.tag_cor || 'yellow');
+    }
+
+    // Cards Claude — análise semanal
+    set('claude-date-semana', (G.data_inicio_fmt || '') + ' → ' + (G.data_hoje_fmt || G.hoje));
+    set('claude-frase-semana', G.frase_claude_semana);
+    set('claude-detalhe-semana', G.detalhe_semana);
+    const tagSemana = document.getElementById('claude-tag-semana');
+    if (tagSemana && G.tag_semana) {
+      tagSemana.textContent = G.tag_semana;
+      tagSemana.className = 'tag ' + (G.tag_cor_semana || 'yellow');
+    }
 
     // Orientação do dia
     const oriCard = document.getElementById('orientacao-alert');

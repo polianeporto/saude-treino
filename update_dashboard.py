@@ -224,6 +224,55 @@ if hora_brasilia >= lembrar_apos:
         alerta_treino_urgente = hora_brasilia >= 20
 
 # Gera o data.js
+# ── Análise das últimas 7 noites para o card Claude ──────────────────────────
+historico_7 = historico_spo2[:7]  # já coletado acima
+scores_7     = [n["sono_score"] for n in historico_7 if n["sono_score"]]
+mins_spo2_7  = [n["spo2_min"]   for n in historico_7 if n["spo2_min"]]
+noites_sem_rem = 0  # calculado abaixo
+
+sono_media_7     = round(sum(scores_7) / len(scores_7)) if scores_7 else "--"
+spo2_noites_7    = sum(1 for v in mins_spo2_7 if v < 90)
+data_inicio      = historico_7[-1]["data"] if historico_7 else today
+d_ini            = datetime.datetime.strptime(data_inicio, "%Y-%m-%d")
+data_inicio_fmt  = d_ini.strftime("%d/%m")
+data_hoje_fmt    = datetime.date.today().strftime("%d/%m/%Y")
+
+# Tag e frase da análise noturna (usando dados de hoje)
+if sono_score != "--" and sono_score >= 80:
+    tag_sono = "Sono Bom"
+    tag_cor  = "green"
+    frase_claude_noite = f"Boa noite! {sono_h}h de sono com score {sono_score}. Body Battery ao acordar em boa forma. Aproveite o dia com intensidade normal."
+elif sono_score != "--" and sono_score >= 65:
+    tag_sono = "Sono Regular"
+    tag_cor  = "yellow"
+    frase_claude_noite = f"Noite razoável — {sono_h}h, score {sono_score}. REM de {sono_rem} min. Deu pra recuperar, mas atenção à intensidade do treino hoje."
+elif sono_score != "--":
+    tag_sono = "Sono Ruim"
+    tag_cor  = "red"
+    frase_claude_noite = f"Noite difícil: {sono_h}h com score {sono_score} e apenas {sono_rem} min de REM. Seu corpo não recuperou de verdade — reduza a carga hoje."
+else:
+    tag_sono = "Sem dado"
+    tag_cor  = "yellow"
+    frase_claude_noite = "Não foi possível ler os dados de sono desta noite."
+
+detalhe_noite = f"Sono REM: {sono_rem} min · SpO2 mínimo: {spo2_min}% · Body Battery: {body_battery} · Estresse médio: {estresse}/100"
+
+# Frase da análise semanal
+if sono_media_7 != "--" and sono_media_7 >= 75 and spo2_noites_7 <= 2:
+    tag_semana = "Boa semana"
+    tag_cor_semana = "green"
+    frase_claude_semana = f"Semana sólida! Sono médio {sono_media_7}/100 e SpO2 abaixo de 90% em apenas {spo2_noites_7} noites. Continue nesse ritmo."
+elif spo2_noites_7 >= 5:
+    tag_semana = "Atenção"
+    tag_cor_semana = "red"
+    frase_claude_semana = f"SpO2 abaixo de 90% em {spo2_noites_7} das últimas 7 noites — padrão consistente de dessaturação. Prioridade: consulta com pneumologista e polissonografia."
+else:
+    tag_semana = "Atenção"
+    tag_cor_semana = "yellow"
+    frase_claude_semana = f"Sono médio de {sono_media_7}/100 nas últimas 7 noites. SpO2 abaixo de 90% em {spo2_noites_7} noites. Recuperação incompleta afeta diretamente seu ganho de massa."
+
+detalhe_semana = f"Score médio: {sono_media_7}/100 · SpO2 abaixo de 90%: {spo2_noites_7}/7 noites · SpO2 mínimo do período: {spo2_min_absoluto}% · Período: {data_inicio_fmt} → {data_hoje_fmt}"
+
 resumo_personal = f"""📋 Resumo diário — Poli ({now})
 
 ⚡ Body Battery: {body_battery}/100 — {bb_msg}
@@ -239,6 +288,16 @@ resumo_personal = f"""📋 Resumo diário — Poli ({now})
 data = {
     "atualizado": now,
     "resumo_personal": resumo_personal,
+    "tag_sono": tag_sono,
+    "tag_cor": tag_cor,
+    "frase_claude_noite": frase_claude_noite,
+    "detalhe_noite": detalhe_noite,
+    "tag_semana": tag_semana,
+    "tag_cor_semana": tag_cor_semana,
+    "frase_claude_semana": frase_claude_semana,
+    "detalhe_semana": detalhe_semana,
+    "data_hoje_fmt": data_hoje_fmt,
+    "data_inicio_fmt": data_inicio_fmt,
     "hoje": today,
     "body_battery": body_battery,
     "bb_max": bb_max,
