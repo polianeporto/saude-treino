@@ -1,6 +1,16 @@
 const GARMIN = {
-  "atualizado": "28/07/2026 às 17:26h",
-  "resumo_personal": "📋 Resumo diário — Poli (28/07/2026 às 17:26h)\n\n⚡ Body Battery: 59/100 — ⚡ Moderado — cuidado na intensidade\n😴 Sono: 6.0h · score 64 — ⚡ Sono regular — atenção à intensidade\n❤️ FC repouso: 64 bpm\n🚶 Passos: 2636/6040 (44%)\n🫁 SpO2 mínimo: 83%\n📊 Estresse médio: 21/100\n\n🏋️ Treino de hoje: Cardio Leve + Abs\n🎯 Orientação: Treino moderado — sem forçar — Sinais de recuperação incompleta. Musculação com carga reduzida · Cardio zona 2 · Sem corrida forte hoje.",
+  "atualizado": "28/07/2026 às 14:31h",
+  "resumo_personal": "📋 Resumo diário — Poli (28/07/2026 às 14:31h)\n\n⚡ Body Battery: 59/100 — ⚡ Moderado — cuidado na intensidade\n😴 Sono: 6.0h · score 64 — ⚡ Sono regular — atenção à intensidade\n❤️ FC repouso: 64 bpm\n🚶 Passos: 2636/6040 (44%)\n🫁 SpO2 mínimo: 83%\n📊 Estresse médio: 21/100\n\n🏋️ Treino de hoje: Cardio Leve + Abs\n🎯 Orientação: Treino moderado — sem forçar — Sinais de recuperação incompleta. Musculação com carga reduzida · Cardio zona 2 · Sem corrida forte hoje.",
+  "tag_sono": "Sono Ruim",
+  "tag_cor": "red",
+  "frase_claude_noite": "Noite difícil: 6.0h com score 64 e apenas 31 min de REM. Seu corpo não recuperou de verdade — reduza a carga hoje.",
+  "detalhe_noite": "Sono REM: 31 min · SpO2 mínimo: 83% · Body Battery: 59 · Estresse médio: 21/100",
+  "tag_semana": "Atenção",
+  "tag_cor_semana": "red",
+  "frase_claude_semana": "SpO2 abaixo de 90% em 6 das últimas 7 noites — padrão consistente de dessaturação. Prioridade: consulta com pneumologista e polissonografia.",
+  "detalhe_semana": "Score médio: 71/100 · SpO2 abaixo de 90%: 6/7 noites · SpO2 mínimo do período: 83% · Período: 21/07 → 28/07/2026",
+  "data_hoje_fmt": "28/07/2026",
+  "data_inicio_fmt": "21/07",
   "hoje": "2026-07-28",
   "body_battery": 59,
   "bb_max": 83,
@@ -155,5 +165,5 @@ const GARMIN = {
   "minutos_ativos_hoje": 0,
   "alerta_treino": "",
   "alerta_treino_urgente": false,
-  "hora_brasilia": 14
+  "hora_brasilia": 11
 };
