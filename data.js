@@ -1,15 +1,10 @@
 const GARMIN = {
-<<<<<<< HEAD
-  "atualizado": "28/07/2026 às 17:14h",
-  "resumo_personal": "📋 Resumo diário — Poli (28/07/2026 às 17:14h)\n\n⚡ Body Battery: 59/100 — ⚡ Moderado — cuidado na intensidade\n😴 Sono: 6.0h · score 64 — ⚡ Sono regular — atenção à intensidade\n❤️ FC repouso: 64 bpm\n🚶 Passos: 2636/6040 (44%)\n🫁 SpO2 mínimo: 83%\n📊 Estresse médio: 21/100\n\n🏋️ Treino de hoje: Cardio Leve + Abs\n🎯 Orientação: Treino moderado — sem forçar — Sinais de recuperação incompleta. Musculação com carga reduzida · Cardio zona 2 · Sem corrida forte hoje.",
-=======
-  "atualizado": "28/07/2026 às 20:12h",
-  "resumo_personal": "📋 Resumo diário — Poli (28/07/2026 às 20:12h)\n\n⚡ Body Battery: 59/100 — ⚡ Moderado — cuidado na intensidade\n😴 Sono: 6.0h · score 64 — ⚡ Sono regular — atenção à intensidade\n❤️ FC repouso: 64 bpm\n🚶 Passos: 2636/6040 (44%)\n🫁 SpO2 mínimo: 83%\n📊 Estresse médio: 21/100\n\n🏋️ Treino de hoje: Cardio Leve + Abs\n🎯 Orientação: Treino moderado — sem forçar — Sinais de recuperação incompleta. Musculação com carga reduzida · Cardio zona 2 · Sem corrida forte hoje.",
->>>>>>> 9c014daacebb94e731e7bb1ed4fdc2ee740f10da
+  "atualizado": "28/07/2026 às 21:57h",
+  "resumo_personal": "📋 Resumo diário — Poli (28/07/2026 às 21:57h)\n\n⚡ Body Battery: 43/100 — ⚡ Moderado — cuidado na intensidade\n😴 Sono: 6.0h · score 64 — ⚡ Sono regular — atenção à intensidade\n❤️ FC repouso: 64 bpm\n🚶 Passos: 3354/6040 (56%)\n🫁 SpO2 mínimo: 83%\n📊 Estresse médio: 24/100\n\n🏋️ Treino de hoje: Cardio Leve + Abs\n🎯 Orientação: Treino moderado — sem forçar — Sinais de recuperação incompleta. Musculação com carga reduzida · Cardio zona 2 · Sem corrida forte hoje.",
   "tag_sono": "Sono Ruim",
   "tag_cor": "red",
   "frase_claude_noite": "Noite difícil: 6.0h com score 64 e apenas 31 min de REM. Seu corpo não recuperou de verdade — reduza a carga hoje.",
-  "detalhe_noite": "Sono REM: 31 min · SpO2 mínimo: 83% · Body Battery: 59 · Estresse médio: 21/100",
+  "detalhe_noite": "Sono REM: 31 min · SpO2 mínimo: 83% · Body Battery: 43 · Estresse médio: 24/100",
   "tag_semana": "Atenção",
   "tag_cor_semana": "red",
   "frase_claude_semana": "SpO2 abaixo de 90% em 6 das últimas 7 noites — padrão consistente de dessaturação. Prioridade: consulta com pneumologista e polissonografia.",
@@ -17,29 +12,29 @@ const GARMIN = {
   "data_hoje_fmt": "28/07/2026",
   "data_inicio_fmt": "21/07",
   "hoje": "2026-07-28",
-  "body_battery": 59,
+  "body_battery": 43,
   "bb_max": 83,
   "bb_min": 35,
   "bb_feedback_cor": "yellow",
   "bb_feedback_msg": "⚡ Moderado — cuidado na intensidade",
-  "steps": "2.636",
+  "steps": "3.354",
   "steps_goal": "6.040",
-  "steps_pct": 44,
+  "steps_pct": 56,
   "steps_feedback_cor": "yellow",
   "steps_feedback_msg": "⚡ Continue se movendo",
   "fc_repouso": 64,
   "fc_feedback_cor": "green",
   "fc_feedback_msg": "✅ Saudável",
-  "estresse": 21,
+  "estresse": 24,
   "spo2_min": 83,
   "spo2_media": 96.0,
   "spo2_feedback_cor": "red",
   "spo2_feedback_msg": "🔴 Crítico — investigar",
   "hrv_val": 40,
   "hrv_status": "BALANCED",
-  "calorias": 55.0,
-  "calorias_repouso": 861.0,
-  "calorias_total": 916.0,
+  "calorias": 68.0,
+  "calorias_repouso": 1131.0,
+  "calorias_total": 1199.0,
   "sono_h": 6.0,
   "sono_score": 64,
   "sono_qualidade": "FAIR",
@@ -172,9 +167,5 @@ const GARMIN = {
   "minutos_ativos_hoje": 0,
   "alerta_treino": "Ainda não fez a bike hoje! Vai lá — 20 a 30 minutos, FC abaixo de 130 bpm. Você consegue 💪",
   "alerta_treino_urgente": false,
-<<<<<<< HEAD
-  "hora_brasilia": 14
-=======
-  "hora_brasilia": 17
->>>>>>> 9c014daacebb94e731e7bb1ed4fdc2ee740f10da
+  "hora_brasilia": 18
 };
