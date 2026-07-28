@@ -224,8 +224,21 @@ if hora_brasilia >= lembrar_apos:
         alerta_treino_urgente = hora_brasilia >= 20
 
 # Gera o data.js
+resumo_personal = f"""📋 Resumo diário — Poli ({now})
+
+⚡ Body Battery: {body_battery}/100 — {bb_msg}
+😴 Sono: {sono_h}h · score {sono_score} — {sono_msg}
+❤️ FC repouso: {fc_repouso} bpm
+🚶 Passos: {steps}/{steps_goal} ({steps_pct}%)
+🫁 SpO2 mínimo: {spo2_min}%
+📊 Estresse médio: {estresse}/100
+
+🏋️ Treino de hoje: {treino_nome_hoje}
+🎯 Orientação: {orientacao_titulo} — {orientacao_texto}"""
+
 data = {
     "atualizado": now,
+    "resumo_personal": resumo_personal,
     "hoje": today,
     "body_battery": body_battery,
     "bb_max": bb_max,

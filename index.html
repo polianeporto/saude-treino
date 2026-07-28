@@ -651,6 +651,19 @@
       </div>
     </div>
 
+    <!-- RESUMO PESSOAL -->
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px 18px;margin-bottom:16px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+        <div style="font-size:0.78rem;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--accent);">
+          <i class="ti ti-clipboard-text" style="vertical-align:-2px;margin-right:4px;"></i>Resumo do dia
+        </div>
+        <button onclick="copiarResumo()" id="btn-copiar" style="display:flex;align-items:center;gap:5px;background:none;border:1px solid var(--border);border-radius:8px;padding:5px 12px;cursor:pointer;font-family:inherit;font-size:0.75rem;color:var(--accent);font-weight:600;">
+          <i class="ti ti-copy"></i> Copiar
+        </button>
+      </div>
+      <pre id="resumo-personal" style="font-family:inherit;font-size:0.8rem;line-height:1.7;white-space:pre-wrap;color:var(--text);margin:0;">Carregando...</pre>
+    </div>
+
     <div class="grid grid-4" style="margin-bottom:10px;">
       <div class="card purple">
         <div class="card-label">Body Battery</div>
@@ -1306,6 +1319,10 @@
 
     set('badge-atualizado', G.atualizado);
 
+    // Resumo pessoal
+    const resumoEl = document.getElementById('resumo-personal');
+    if (resumoEl && G.resumo_personal) resumoEl.textContent = G.resumo_personal;
+
     // Orientação do dia
     const oriCard = document.getElementById('orientacao-alert');
     if (oriCard) oriCard.className = 'orientacao-card ' + G.orientacao_cor;
@@ -1574,6 +1591,24 @@ const GH_API = "https://api.github.com";
 const GRUPOS = ["gluteo","quad","posterior","superior"];
 
 function getToken() { return localStorage.getItem("gh_token") || ""; }
+
+function copiarResumo() {
+  const txt = document.getElementById("resumo-personal")?.textContent || "";
+  if (!txt || txt === "Carregando...") return;
+  navigator.clipboard.writeText(txt).then(() => {
+    const btn = document.getElementById("btn-copiar");
+    if (btn) {
+      btn.innerHTML = '<i class="ti ti-check"></i> Copiado!';
+      btn.style.color = "var(--teal)";
+      btn.style.borderColor = "var(--teal)";
+      setTimeout(() => {
+        btn.innerHTML = '<i class="ti ti-copy"></i> Copiar';
+        btn.style.color = "";
+        btn.style.borderColor = "";
+      }, 2000);
+    }
+  });
+}
 function salvarToken() {
   const t = document.getElementById("gh-token-input").value.trim();
   if (!t) return alert("Insira o token.");
