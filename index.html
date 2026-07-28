@@ -709,6 +709,26 @@
       </div>
     </div>
 
+    <!-- CALORIAS -->
+    <div style="font-size:0.7rem;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:0.8px;margin-bottom:10px;">Calorias do dia</div>
+    <div class="grid grid-3" style="margin-bottom:14px;">
+      <div class="card orange">
+        <div class="card-label">Gasto total</div>
+        <div class="card-value" id="val-cal-total">–<span class="card-unit">kcal</span></div>
+        <div class="card-sub">Exercício + repouso</div>
+      </div>
+      <div class="card pink">
+        <div class="card-label">Exercício</div>
+        <div class="card-value" id="val-cal-ativa">–<span class="card-unit">kcal</span></div>
+        <div class="card-sub">Atividade física</div>
+      </div>
+      <div class="card purple">
+        <div class="card-label">Repouso (TMB)</div>
+        <div class="card-value" id="val-cal-repouso">–<span class="card-unit">kcal</span></div>
+        <div class="card-sub">Metabolismo basal</div>
+      </div>
+    </div>
+
     <div class="card">
       <div class="progress-wrap">
         <div class="progress-label"><span>Passos</span><span id="bar-steps-label">– / –</span></div>
@@ -1379,6 +1399,11 @@
     set('val-hrv', G.hrv_val);
     set('sub-hrv', 'Status: ' + G.hrv_status);
     set('val-estresse', G.estresse);
+
+    // Calorias
+    set('val-cal-total',   G.calorias_total   !== undefined ? G.calorias_total   : '–');
+    set('val-cal-ativa',   G.calorias         !== undefined ? G.calorias         : '–');
+    set('val-cal-repouso', G.calorias_repouso !== undefined ? G.calorias_repouso : '–');
 
     // Barras
     setBar('bar-steps', G.steps_pct, 'var(--orange)');

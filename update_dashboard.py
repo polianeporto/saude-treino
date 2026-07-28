@@ -89,7 +89,11 @@ fc_repouso = stats.get("restingHeartRate", "--")
 estresse = stats.get("averageStressLevel", "--")
 spo2_min = stats.get("lowestSpo2", "--")
 spo2_media = stats.get("averageSpo2", "--")
-calorias = stats.get("activeKilocalories", "--")
+calorias         = stats.get("activeKilocalories", "--")
+calorias_repouso = stats.get("bmrKilocalories", "--")
+calorias_total   = stats.get("totalKilocalories", "--")
+if calorias != "--" and calorias_repouso != "--":
+    calorias_total = calorias + calorias_repouso
 
 sono_h = round(sleep.get("sleepTimeSeconds", 0) / 3600, 1)
 sono_score = scores.get("overall", {}).get("value", "--")
@@ -320,6 +324,8 @@ data = {
     "hrv_val": hrv_val,
     "hrv_status": hrv_status,
     "calorias": calorias,
+    "calorias_repouso": calorias_repouso,
+    "calorias_total": calorias_total,
     "sono_h": sono_h,
     "sono_score": sono_score,
     "sono_qualidade": sono_qualidade,
