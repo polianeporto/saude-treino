@@ -1,10 +1,10 @@
 const GARMIN = {
-  "atualizado": "01/08/2026 às 22:47h",
-  "resumo_personal": "📋 Resumo diário — Poli (01/08/2026 às 22:47h)\n\n⚡ Body Battery: 32/100 — ⚠️ Baixo — treino leve\n😴 Sono: 6.3h · score 74 — ✅ Sono bom\n❤️ FC repouso: 67 bpm\n🚶 Passos: 9619/6960 (138%)\n🫁 SpO2 mínimo: 81%\n📊 Estresse médio: 31/100\n\n🏋️ Treino de hoje: Descanso ou Livre\n🎯 Orientação: Treino moderado — sem forçar — Sinais de recuperação incompleta. Musculação com carga reduzida · Cardio zona 2 · Sem corrida forte hoje.",
+  "atualizado": "01/08/2026 às 23:51h",
+  "resumo_personal": "📋 Resumo diário — Poli (01/08/2026 às 23:51h)\n\n⚡ Body Battery: 21/100 — 🔴 Crítico — só recuperação hoje\n😴 Sono: 6.3h · score 74 — ✅ Sono bom\n❤️ FC repouso: 67 bpm\n🚶 Passos: 9619/6960 (138%)\n🫁 SpO2 mínimo: 81%\n📊 Estresse médio: 31/100\n\n🏋️ Treino de hoje: Descanso ou Livre\n🎯 Orientação: Dia de descanso ativo — Body Battery ou sono muito baixos. Bike leve 20–30 min · FC abaixo de 120 · Sem musculação pesada hoje.",
   "tag_sono": "Sono Regular",
   "tag_cor": "yellow",
   "frase_claude_noite": "Noite razoável — 6.3h, score 74. REM de 70 min. Deu pra recuperar, mas atenção à intensidade do treino hoje.",
-  "detalhe_noite": "Sono REM: 70 min · SpO2 mínimo: 81% · Body Battery: 32 · Estresse médio: 31/100",
+  "detalhe_noite": "Sono REM: 70 min · SpO2 mínimo: 81% · Body Battery: 21 · Estresse médio: 31/100",
   "tag_semana": "Atenção",
   "tag_cor_semana": "red",
   "frase_claude_semana": "SpO2 abaixo de 90% em 6 das últimas 7 noites — padrão consistente de dessaturação. Prioridade: consulta com pneumologista e polissonografia.",
@@ -12,11 +12,11 @@ const GARMIN = {
   "data_hoje_fmt": "01/08/2026",
   "data_inicio_fmt": "25/07",
   "hoje": "2026-08-01",
-  "body_battery": 32,
+  "body_battery": 21,
   "bb_max": 71,
   "bb_min": 18,
   "bb_feedback_cor": "red",
-  "bb_feedback_msg": "⚠️ Baixo — treino leve",
+  "bb_feedback_msg": "🔴 Crítico — só recuperação hoje",
   "steps": "9.619",
   "steps_goal": "6.960",
   "steps_pct": 138,
@@ -47,10 +47,10 @@ const GARMIN = {
   "sono_feedback_cor": "green",
   "sono_feedback_msg": "✅ Sono bom",
   "frase_sono": "Noite razoável — 6.3h dormidas, score 74. Deu pra recuperar mas não foi o ideal. Atenção à intensidade hoje.",
-  "orientacao_cor": "yellow",
-  "orientacao_icon": "⚠️",
-  "orientacao_titulo": "Treino moderado — sem forçar",
-  "orientacao_texto": "Sinais de recuperação incompleta. Musculação com carga reduzida · Cardio zona 2 · Sem corrida forte hoje.",
+  "orientacao_cor": "red",
+  "orientacao_icon": "😴",
+  "orientacao_titulo": "Dia de descanso ativo",
+  "orientacao_texto": "Body Battery ou sono muito baixos. Bike leve 20–30 min · FC abaixo de 120 · Sem musculação pesada hoje.",
   "historico_spo2": [
     {
       "data": "2026-07-31",
@@ -175,5 +175,5 @@ const GARMIN = {
   "minutos_ativos_hoje": 101,
   "alerta_treino": "",
   "alerta_treino_urgente": false,
-  "hora_brasilia": 19
+  "hora_brasilia": 20
 };
