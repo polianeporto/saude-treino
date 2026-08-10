@@ -729,6 +729,14 @@
       </div>
     </div>
 
+    <!-- CICLO MENSTRUAL -->
+    <div style="font-size:0.7rem;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:0.8px;margin-bottom:10px;">Ciclo menstrual</div>
+    <div class="card pink" id="card-ciclo" style="margin-bottom:14px;">
+      <div class="card-label"><i class="ti ti-droplet" style="vertical-align:-2px;margin-right:4px;"></i>Ciclo menstrual</div>
+      <div class="card-value" id="val-ciclo-dia" style="font-size:1.35rem;">– <span class="card-unit" id="val-ciclo-fluxo"></span></div>
+      <div class="card-sub" id="sub-ciclo">Sincronizando com o Garmin Connect…</div>
+    </div>
+
     <div class="card">
       <div class="progress-wrap">
         <div class="progress-label"><span>Passos</span><span id="bar-steps-label">– / –</span></div>
@@ -1354,6 +1362,26 @@
       tagSemana.textContent = G.tag_semana;
       tagSemana.className = 'tag ' + (G.tag_cor_semana || 'yellow');
     }
+
+    // Ciclo menstrual
+    (function preencherCiclo() {
+      const dia = G.ciclo_dia_atual;
+      const fluxo = G.ciclo_fluxo;
+      const temDado = dia !== undefined && dia !== null && dia !== "--";
+      set('val-ciclo-dia', temDado ? ('Dia ' + dia) : '–');
+      const fluxoLabel = { NONE: '', LIGHT: 'Fluxo leve', MEDIUM: 'Fluxo moderado', HEAVY: 'Fluxo intenso', SPOTTING: 'Spotting' };
+      set('val-ciclo-fluxo', fluxo && fluxoLabel[fluxo] !== undefined ? fluxoLabel[fluxo] : '');
+      const sub = document.getElementById('sub-ciclo');
+      if (sub) {
+        if (temDado) {
+          sub.textContent = (G.ciclo_previsto ? 'Estimativa — ' : '') + 'do ciclo atual, segundo o Garmin Connect.';
+        } else if (G.ciclo_hoje_raw === null && G.ciclo_calendario_raw === null) {
+          sub.textContent = 'Sem dados de ciclo no Garmin Connect (verifique se o rastreamento está ativado no app).';
+        } else {
+          sub.textContent = 'Dados recebidos do Garmin — em calibração, peça pro Claude analisar o data.js bruto.';
+        }
+      }
+    })();
 
     // Orientação do dia
     const oriCard = document.getElementById('orientacao-alert');

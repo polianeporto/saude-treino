@@ -78,6 +78,32 @@ except Exception:
     hrv_val = "--"
     hrv_status = "--"
 
+# ── Ciclo menstrual ────────────────────────────────────────────────────────
+# API não-oficial (endpoint "periodichealth-service" da Garmin Connect).
+# Guardamos o payload bruto além de tentar extrair os campos mais comuns,
+# pois o formato exato pode variar e ainda não foi validado com dados reais.
+ciclo_hoje = None
+ciclo_calendario = None
+ciclo_dia_atual = "--"
+ciclo_fluxo = "--"
+ciclo_previsto = None
+
+try:
+    ciclo_hoje = client.get_menstrual_data_for_date(today)
+    dia_info = (ciclo_hoje or {}).get("cycleDayInfo") or {}
+    ciclo_dia_atual = dia_info.get("dayInCycle", "--")
+    ciclo_fluxo = dia_info.get("menstrualFlow", "--")
+    ciclo_previsto = dia_info.get("predicted", None)
+    print(f"   Ciclo menstrual (hoje): dia {ciclo_dia_atual} · fluxo {ciclo_fluxo}")
+except Exception as e:
+    print(f"   Aviso: não foi possível buscar dados do ciclo menstrual de hoje — {e}")
+
+try:
+    data_inicio_ciclo = (datetime.date.today() - datetime.timedelta(days=90)).isoformat()
+    ciclo_calendario = client.get_menstrual_calendar_data(data_inicio_ciclo, today)
+except Exception as e:
+    print(f"   Aviso: não foi possível buscar calendário do ciclo menstrual — {e}")
+
 # Extrai valores
 body_battery = stats.get("bodyBatteryMostRecentValue", "--")
 bb_max = stats.get("bodyBatteryHighestValue", "--")
@@ -354,6 +380,11 @@ data = {
     "alerta_treino": alerta_treino,
     "alerta_treino_urgente": alerta_treino_urgente,
     "hora_brasilia": hora_brasilia,
+    "ciclo_dia_atual": ciclo_dia_atual,
+    "ciclo_fluxo": ciclo_fluxo,
+    "ciclo_previsto": ciclo_previsto,
+    "ciclo_hoje_raw": ciclo_hoje,
+    "ciclo_calendario_raw": ciclo_calendario,
 }
 
 with open("data.js", "w", encoding="utf-8") as f:
