@@ -1,6 +1,6 @@
 const GARMIN = {
-  "atualizado": "11/08/2026 às 11:39h",
-  "resumo_personal": "📋 Resumo diário — Poli (11/08/2026 às 11:39h)\n\n⚡ Body Battery: 58/100 — ⚡ Moderado — cuidado na intensidade\n😴 Sono: 6.0h · score 69 — ⚡ Sono regular — atenção à intensidade\n❤️ FC repouso: 69 bpm\n🚶 Passos: 529/7410 (7%)\n🫁 SpO2 mínimo: 90%\n📊 Estresse médio: 23/100\n\n🏋️ Treino de hoje: Cardio Leve + Abs\n🎯 Orientação: Pode treinar! Siga a ficha do dia. — Body Battery e sono em bom nível. Siga a ficha semanal normalmente. Monitore a FC durante o treino.",
+  "atualizado": "11/08/2026 às 12:49h",
+  "resumo_personal": "📋 Resumo diário — Poli (11/08/2026 às 12:49h)\n\n⚡ Body Battery: 58/100 — ⚡ Moderado — cuidado na intensidade\n😴 Sono: 6.0h · score 69 — ⚡ Sono regular — atenção à intensidade\n❤️ FC repouso: 69 bpm\n🚶 Passos: 561/7410 (8%)\n🫁 SpO2 mínimo: 90%\n📊 Estresse médio: 23/100\n\n🏋️ Treino de hoje: Cardio Leve + Abs\n🎯 Orientação: Pode treinar! Siga a ficha do dia. — Body Battery e sono em bom nível. Siga a ficha semanal normalmente. Monitore a FC durante o treino.",
   "tag_sono": "Sono Regular",
   "tag_cor": "yellow",
   "frase_claude_noite": "Noite razoável — 6.0h, score 69. REM de 53 min. Deu pra recuperar, mas atenção à intensidade do treino hoje.",
@@ -17,9 +17,9 @@ const GARMIN = {
   "bb_min": 20,
   "bb_feedback_cor": "yellow",
   "bb_feedback_msg": "⚡ Moderado — cuidado na intensidade",
-  "steps": "529",
+  "steps": "561",
   "steps_goal": "7.410",
-  "steps_pct": 7,
+  "steps_pct": 8,
   "steps_feedback_cor": "red",
   "steps_feedback_msg": "⚠️ Muito parada hoje",
   "fc_repouso": 69,
@@ -32,9 +32,9 @@ const GARMIN = {
   "spo2_feedback_msg": "⚡ Levemente baixo",
   "hrv_val": 35,
   "hrv_status": "BALANCED",
-  "calorias": 15.0,
-  "calorias_repouso": 528.0,
-  "calorias_total": 543.0,
+  "calorias": 16.0,
+  "calorias_repouso": 538.0,
+  "calorias_total": 554.0,
   "sono_h": 6.0,
   "sono_score": 69,
   "sono_qualidade": "FAIR",
@@ -175,5 +175,5 @@ const GARMIN = {
   "minutos_ativos_hoje": 0,
   "alerta_treino": "",
   "alerta_treino_urgente": false,
-  "hora_brasilia": 8
+  "hora_brasilia": 9
 };
