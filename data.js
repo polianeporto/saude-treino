@@ -1,6 +1,6 @@
 const GARMIN = {
-  "atualizado": "11/08/2026 às 15:54h",
-  "resumo_personal": "📋 Resumo diário — Poli (11/08/2026 às 15:54h)\n\n⚡ Body Battery: 41/100 — ⚡ Moderado — cuidado na intensidade\n😴 Sono: 6.0h · score 69 — ⚡ Sono regular — atenção à intensidade\n❤️ FC repouso: 69 bpm\n🚶 Passos: 1635/7410 (22%)\n🫁 SpO2 mínimo: 90%\n📊 Estresse médio: 28/100\n\n🏋️ Treino de hoje: Cardio Leve + Abs\n🎯 Orientação: Treino moderado — sem forçar — Sinais de recuperação incompleta. Musculação com carga reduzida · Cardio zona 2 · Sem corrida forte hoje.",
+  "atualizado": "11/08/2026 às 16:52h",
+  "resumo_personal": "📋 Resumo diário — Poli (11/08/2026 às 16:52h)\n\n⚡ Body Battery: 41/100 — ⚡ Moderado — cuidado na intensidade\n😴 Sono: 6.0h · score 69 — ⚡ Sono regular — atenção à intensidade\n❤️ FC repouso: 69 bpm\n🚶 Passos: 1650/7410 (22%)\n🫁 SpO2 mínimo: 90%\n📊 Estresse médio: 28/100\n\n🏋️ Treino de hoje: Cardio Leve + Abs\n🎯 Orientação: Treino moderado — sem forçar — Sinais de recuperação incompleta. Musculação com carga reduzida · Cardio zona 2 · Sem corrida forte hoje.",
   "tag_sono": "Sono Regular",
   "tag_cor": "yellow",
   "frase_claude_noite": "Noite razoável — 6.0h, score 69. REM de 53 min. Deu pra recuperar, mas atenção à intensidade do treino hoje.",
@@ -17,7 +17,7 @@ const GARMIN = {
   "bb_min": 20,
   "bb_feedback_cor": "yellow",
   "bb_feedback_msg": "⚡ Moderado — cuidado na intensidade",
-  "steps": "1.635",
+  "steps": "1.650",
   "steps_goal": "7.410",
   "steps_pct": 22,
   "steps_feedback_cor": "red",
@@ -33,8 +33,8 @@ const GARMIN = {
   "hrv_val": 35,
   "hrv_status": "BALANCED",
   "calorias": 73.0,
-  "calorias_repouso": 784.0,
-  "calorias_total": 857.0,
+  "calorias_repouso": 795.0,
+  "calorias_total": 868.0,
   "sono_h": 6.0,
   "sono_score": 69,
   "sono_qualidade": "FAIR",
@@ -175,5 +175,5 @@ const GARMIN = {
   "minutos_ativos_hoje": 0,
   "alerta_treino": "",
   "alerta_treino_urgente": false,
-  "hora_brasilia": 12
+  "hora_brasilia": 13
 };
