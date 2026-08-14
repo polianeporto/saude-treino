@@ -90,6 +90,7 @@ ciclo_previsto = None
 
 try:
     ciclo_hoje = client.get_menstrual_data_for_date(today)
+    print(f"   Ciclo menstrual (hoje) — payload bruto: {json.dumps(ciclo_hoje, ensure_ascii=False)}")
     dia_info = (ciclo_hoje or {}).get("cycleDayInfo") or {}
     ciclo_dia_atual = dia_info.get("dayInCycle", "--")
     ciclo_fluxo = dia_info.get("menstrualFlow", "--")
@@ -101,6 +102,7 @@ except Exception as e:
 try:
     data_inicio_ciclo = (datetime.date.today() - datetime.timedelta(days=90)).isoformat()
     ciclo_calendario = client.get_menstrual_calendar_data(data_inicio_ciclo, today)
+    print(f"   Ciclo menstrual (calendário 90d) — payload bruto: {json.dumps(ciclo_calendario, ensure_ascii=False)}")
 except Exception as e:
     print(f"   Aviso: não foi possível buscar calendário do ciclo menstrual — {e}")
 
@@ -121,12 +123,16 @@ calorias_total   = stats.get("totalKilocalories", "--")
 if calorias != "--" and calorias_repouso != "--":
     calorias_total = calorias + calorias_repouso
 
-sono_h = round(sleep.get("sleepTimeSeconds", 0) / 3600, 1)
+# Usa "or 0" em vez do default do .get() porque a Garmin às vezes retorna a
+# chave presente com valor None (não ausente) quando o sono da noite ainda
+# não foi totalmente sincronizado — o default do .get() só vale se a chave
+# não existir, então isso sozinho não bastava e quebrava o script.
+sono_h = round((sleep.get("sleepTimeSeconds") or 0) / 3600, 1)
 sono_score = scores.get("overall", {}).get("value", "--")
 sono_qualidade = scores.get("overall", {}).get("qualifierKey", "--")
-sono_profundo = round(sleep.get("deepSleepSeconds", 0) / 60)
-sono_rem = round(sleep.get("remSleepSeconds", 0) / 60)
-sono_leve = round(sleep.get("lightSleepSeconds", 0) / 60)
+sono_profundo = round((sleep.get("deepSleepSeconds") or 0) / 60)
+sono_rem = round((sleep.get("remSleepSeconds") or 0) / 60)
+sono_leve = round((sleep.get("lightSleepSeconds") or 0) / 60)
 acordou = sleep.get("awakeCount", "--")
 spo2_sono = sleep.get("averageSpO2Value", "--")
 spo2_sono_min = sleep.get("lowestSpO2Value", "--")
@@ -187,7 +193,7 @@ else:
     orientacao_texto = "Body Battery e sono em bom nível. Siga a ficha semanal normalmente. Monitore a FC durante o treino."
 
 # Frase do Claude sobre o sono
-rem_pct = round((sleep.get("remSleepSeconds", 0) / max(sleep.get("sleepTimeSeconds", 1), 1)) * 100)
+rem_pct = round(((sleep.get("remSleepSeconds") or 0) / max(sleep.get("sleepTimeSeconds") or 1, 1)) * 100)
 
 if sono_score != "--" and sono_score >= 80:
     frase_sono = f"Boa noite de sono! Você dormiu {sono_h}h com score {sono_score} — seu corpo recuperou bem. Aproveite o dia."
