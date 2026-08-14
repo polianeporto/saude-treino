@@ -1,6 +1,6 @@
 const GARMIN = {
-  "atualizado": "14/08/2026 às 18:00h",
-  "resumo_personal": "📋 Resumo diário — Poli (14/08/2026 às 18:00h)\n\n⚡ Body Battery: 5/100 — 🔴 Crítico — só recuperação hoje\n😴 Sono: 0.0h · score -- — ⚠️ Sono ruim — priorize recuperação\n❤️ FC repouso: 71 bpm\n🚶 Passos: 2668/8200 (33%)\n🫁 SpO2 mínimo: 90%\n📊 Estresse médio: 77/100\n\n🏋️ Treino de hoje: Glúteos ★\n🎯 Orientação: Dia de descanso ativo — Body Battery ou sono muito baixos. Bike leve 20–30 min · FC abaixo de 120 · Sem musculação pesada hoje.",
+  "atualizado": "14/08/2026 às 18:04h",
+  "resumo_personal": "📋 Resumo diário — Poli (14/08/2026 às 18:04h)\n\n⚡ Body Battery: 5/100 — 🔴 Crítico — só recuperação hoje\n😴 Sono: 0.0h · score -- — ⚠️ Sono ruim — priorize recuperação\n❤️ FC repouso: 71 bpm\n🚶 Passos: 2668/8200 (33%)\n🫁 SpO2 mínimo: 90%\n📊 Estresse médio: 77/100\n\n🏋️ Treino de hoje: Glúteos ★\n🎯 Orientação: Dia de descanso ativo — Body Battery ou sono muito baixos. Bike leve 20–30 min · FC abaixo de 120 · Sem musculação pesada hoje.",
   "tag_sono": "Sem dado",
   "tag_cor": "yellow",
   "frase_claude_noite": "Não foi possível ler os dados de sono desta noite.",
@@ -168,9 +168,26 @@ const GARMIN = {
   "alerta_treino": "",
   "alerta_treino_urgente": false,
   "hora_brasilia": 15,
-  "ciclo_dia_atual": "--",
+  "ciclo_dia_atual": 4,
+  "ciclo_fase": "Menstruação",
   "ciclo_fluxo": "--",
-  "ciclo_previsto": null,
+  "ciclo_previsto": true,
+  "ciclo_periodo_duracao": 5,
+  "ciclo_duracao_prevista": 25,
+  "ciclo_fertil_inicio": 8,
+  "ciclo_fertil_duracao": 7,
+  "ciclo_inicio_atual": "2026-08-11",
+  "ciclo_duracoes": [
+    24,
+    24,
+    13,
+    36
+  ],
+  "ciclo_duracao_media": 24.2,
+  "ciclo_duracao_min": 13,
+  "ciclo_duracao_max": 36,
+  "ciclo_variabilidade": 23,
+  "ciclo_num_registrados": 5,
   "ciclo_hoje_raw": {
     "daySummary": {
       "startDate": "2026-08-11",
