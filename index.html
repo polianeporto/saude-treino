@@ -733,8 +733,9 @@
     <div style="font-size:0.7rem;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:0.8px;margin-bottom:10px;">Ciclo menstrual</div>
     <div class="card pink" id="card-ciclo" style="margin-bottom:14px;">
       <div class="card-label"><i class="ti ti-droplet" style="vertical-align:-2px;margin-right:4px;"></i>Ciclo menstrual</div>
-      <div class="card-value" id="val-ciclo-dia" style="font-size:1.35rem;">– <span class="card-unit" id="val-ciclo-fluxo"></span></div>
+      <div class="card-value" id="val-ciclo-dia" style="font-size:1.35rem;">–</div>
       <div class="card-sub" id="sub-ciclo">Sincronizando com o Garmin Connect…</div>
+      <div class="card-sub" id="sub-ciclo-regularidade" style="margin-top:4px;"></div>
     </div>
 
     <div class="card">
@@ -1366,19 +1367,46 @@
     // Ciclo menstrual
     (function preencherCiclo() {
       const dia = G.ciclo_dia_atual;
-      const fluxo = G.ciclo_fluxo;
       const temDado = dia !== undefined && dia !== null && dia !== "--";
-      set('val-ciclo-dia', temDado ? ('Dia ' + dia) : '–');
-      const fluxoLabel = { NONE: '', LIGHT: 'Fluxo leve', MEDIUM: 'Fluxo moderado', HEAVY: 'Fluxo intenso', SPOTTING: 'Spotting' };
-      set('val-ciclo-fluxo', fluxo && fluxoLabel[fluxo] !== undefined ? fluxoLabel[fluxo] : '');
       const sub = document.getElementById('sub-ciclo');
+      const subReg = document.getElementById('sub-ciclo-regularidade');
+
+      if (!temDado) {
+        set('val-ciclo-dia', '–');
+        if (sub) {
+          sub.textContent = (G.ciclo_hoje_raw === null && G.ciclo_calendario_raw === null)
+            ? 'Sem dados de ciclo no Garmin Connect (verifique se o rastreamento está ativado no app).'
+            : 'Sem dados de ciclo para hoje.';
+        }
+        return;
+      }
+
+      set('val-ciclo-dia', 'Dia ' + dia + (G.ciclo_fase ? ' · ' + G.ciclo_fase : ''));
+
+      const fluxoLabel = { NONE: 'sem fluxo registrado', LIGHT: 'fluxo leve', MEDIUM: 'fluxo moderado', HEAVY: 'fluxo intenso', SPOTTING: 'spotting' };
+      const fluxoTxt = G.ciclo_fluxo && fluxoLabel[G.ciclo_fluxo] ? ' · ' + fluxoLabel[G.ciclo_fluxo] : '';
+
       if (sub) {
-        if (temDado) {
-          sub.textContent = (G.ciclo_previsto ? 'Estimativa — ' : '') + 'do ciclo atual, segundo o Garmin Connect.';
-        } else if (G.ciclo_hoje_raw === null && G.ciclo_calendario_raw === null) {
-          sub.textContent = 'Sem dados de ciclo no Garmin Connect (verifique se o rastreamento está ativado no app).';
+        const partes = [];
+        if (G.ciclo_duracao_prevista && G.ciclo_duracao_prevista !== '--') partes.push('ciclo previsto de ' + G.ciclo_duracao_prevista + ' dias');
+        if (G.ciclo_fertil_inicio && G.ciclo_fertil_inicio !== '--') {
+          const fim = (typeof G.ciclo_fertil_inicio === 'number' && typeof G.ciclo_fertil_duracao === 'number')
+            ? G.ciclo_fertil_inicio + G.ciclo_fertil_duracao - 1 : null;
+          partes.push('janela fértil: dia ' + G.ciclo_fertil_inicio + (fim ? '–' + fim : ''));
+        }
+        sub.textContent = (G.ciclo_previsto ? 'Estimativa — ' : '') + partes.join(' · ') + fluxoTxt;
+      }
+
+      if (subReg) {
+        if (G.ciclo_variabilidade !== undefined && G.ciclo_variabilidade !== '--' && G.ciclo_num_registrados >= 2) {
+          const dur = (G.ciclo_duracoes || []).join(', ');
+          if (G.ciclo_variabilidade > 7) {
+            subReg.innerHTML = '<span style="color:var(--danger);font-weight:600;">⚠️ Ciclos irregulares</span> — durações recentes: ' + dur + ' dias (variação de ' + G.ciclo_variabilidade + ' dias)';
+          } else {
+            subReg.innerHTML = '<span style="color:var(--teal);font-weight:600;">✅ Ciclos regulares</span> — média de ' + G.ciclo_duracao_media + ' dias (' + dur + ')';
+          }
         } else {
-          sub.textContent = 'Dados recebidos do Garmin — em calibração, peça pro Claude analisar o data.js bruto.';
+          subReg.textContent = '';
         }
       }
     })();

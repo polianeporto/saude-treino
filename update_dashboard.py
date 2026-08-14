@@ -80,22 +80,79 @@ except Exception:
 
 # ── Ciclo menstrual ────────────────────────────────────────────────────────
 # API não-oficial (endpoint "periodichealth-service" da Garmin Connect).
-# Guardamos o payload bruto além de tentar extrair os campos mais comuns,
-# pois o formato exato pode variar e ainda não foi validado com dados reais.
+# Formato real confirmado em 14/08/2026 (payload de exemplo):
+#   get_menstrual_data_for_date -> {"daySummary": {startDate, dayInCycle,
+#     periodLength, currentPhase, lengthOfCurrentPhase, daysUntilNextPhase,
+#     fertileWindowStart, lengthOfFertileWindow, predictedCycleLength,
+#     cycleType, predictedCycle}, "dayLog": {...} | null}
+#   get_menstrual_calendar_data -> {"cycleSummaries": [{startDate,
+#     periodLength, fertileWindowStart, lengthOfFertileWindow,
+#     predictedCycle}, ...], "loggedSymptomDays": [...],
+#     "loggedOvulationDays": [...], "loggedNoteDays": [...]}
+# "currentPhase" é um código numérico não documentado — em vez de confiar
+# nele, calculamos a fase a partir de dayInCycle / periodLength / janela
+# fértil, que são valores objetivos.
 ciclo_hoje = None
 ciclo_calendario = None
 ciclo_dia_atual = "--"
 ciclo_fluxo = "--"
+ciclo_fase = "--"
 ciclo_previsto = None
+ciclo_periodo_duracao = "--"
+ciclo_duracao_prevista = "--"
+ciclo_fertil_inicio = "--"
+ciclo_fertil_duracao = "--"
+ciclo_inicio_atual = "--"
+ciclo_duracoes = []
+ciclo_duracao_media = "--"
+ciclo_duracao_min = "--"
+ciclo_duracao_max = "--"
+ciclo_variabilidade = "--"
+ciclo_num_registrados = 0
+
+
+def calc_fase_ciclo(dia, periodo_dur, fertil_inicio, fertil_dur):
+    """Deriva a fase do ciclo a partir de valores objetivos (dia atual,
+    duração do período e janela fértil), evitando depender do código
+    numérico 'currentPhase' que a API não documenta."""
+    try:
+        dia = int(dia)
+    except (TypeError, ValueError):
+        return "--"
+    if periodo_dur not in ("--", None):
+        try:
+            if dia <= int(periodo_dur):
+                return "Menstruação"
+        except (TypeError, ValueError):
+            pass
+    if fertil_inicio not in ("--", None):
+        try:
+            fi = int(fertil_inicio)
+            fd = int(fertil_dur) if fertil_dur not in ("--", None) else 0
+            if fi <= dia < fi + fd:
+                return "Janela fértil"
+            if dia < fi:
+                return "Fase folicular"
+        except (TypeError, ValueError):
+            pass
+    return "Fase lútea"
+
 
 try:
     ciclo_hoje = client.get_menstrual_data_for_date(today)
     print(f"   Ciclo menstrual (hoje) — payload bruto: {json.dumps(ciclo_hoje, ensure_ascii=False)}")
-    dia_info = (ciclo_hoje or {}).get("cycleDayInfo") or {}
+    dia_info = (ciclo_hoje or {}).get("daySummary") or {}
+    day_log = (ciclo_hoje or {}).get("dayLog") or {}
     ciclo_dia_atual = dia_info.get("dayInCycle", "--")
-    ciclo_fluxo = dia_info.get("menstrualFlow", "--")
-    ciclo_previsto = dia_info.get("predicted", None)
-    print(f"   Ciclo menstrual (hoje): dia {ciclo_dia_atual} · fluxo {ciclo_fluxo}")
+    ciclo_periodo_duracao = dia_info.get("periodLength", "--")
+    ciclo_duracao_prevista = dia_info.get("predictedCycleLength", "--")
+    ciclo_fertil_inicio = dia_info.get("fertileWindowStart", "--")
+    ciclo_fertil_duracao = dia_info.get("lengthOfFertileWindow", "--")
+    ciclo_inicio_atual = dia_info.get("startDate", "--")
+    ciclo_previsto = dia_info.get("predictedCycle", None)
+    ciclo_fluxo = day_log.get("menstrualFlow", "--")
+    ciclo_fase = calc_fase_ciclo(ciclo_dia_atual, ciclo_periodo_duracao, ciclo_fertil_inicio, ciclo_fertil_duracao)
+    print(f"   Ciclo menstrual (hoje): dia {ciclo_dia_atual} · fase {ciclo_fase} · fluxo {ciclo_fluxo}")
 except Exception as e:
     print(f"   Aviso: não foi possível buscar dados do ciclo menstrual de hoje — {e}")
 
@@ -103,6 +160,18 @@ try:
     data_inicio_ciclo = (datetime.date.today() - datetime.timedelta(days=90)).isoformat()
     ciclo_calendario = client.get_menstrual_calendar_data(data_inicio_ciclo, today)
     print(f"   Ciclo menstrual (calendário 90d) — payload bruto: {json.dumps(ciclo_calendario, ensure_ascii=False)}")
+    resumos = (ciclo_calendario or {}).get("cycleSummaries") or []
+    inicios = sorted(r["startDate"] for r in resumos if r.get("startDate"))
+    ciclo_num_registrados = len(inicios)
+    for i in range(1, len(inicios)):
+        d1 = datetime.date.fromisoformat(inicios[i - 1])
+        d2 = datetime.date.fromisoformat(inicios[i])
+        ciclo_duracoes.append((d2 - d1).days)
+    if ciclo_duracoes:
+        ciclo_duracao_media = round(sum(ciclo_duracoes) / len(ciclo_duracoes), 1)
+        ciclo_duracao_min = min(ciclo_duracoes)
+        ciclo_duracao_max = max(ciclo_duracoes)
+        ciclo_variabilidade = ciclo_duracao_max - ciclo_duracao_min
 except Exception as e:
     print(f"   Aviso: não foi possível buscar calendário do ciclo menstrual — {e}")
 
@@ -387,8 +456,20 @@ data = {
     "alerta_treino_urgente": alerta_treino_urgente,
     "hora_brasilia": hora_brasilia,
     "ciclo_dia_atual": ciclo_dia_atual,
+    "ciclo_fase": ciclo_fase,
     "ciclo_fluxo": ciclo_fluxo,
     "ciclo_previsto": ciclo_previsto,
+    "ciclo_periodo_duracao": ciclo_periodo_duracao,
+    "ciclo_duracao_prevista": ciclo_duracao_prevista,
+    "ciclo_fertil_inicio": ciclo_fertil_inicio,
+    "ciclo_fertil_duracao": ciclo_fertil_duracao,
+    "ciclo_inicio_atual": ciclo_inicio_atual,
+    "ciclo_duracoes": ciclo_duracoes,
+    "ciclo_duracao_media": ciclo_duracao_media,
+    "ciclo_duracao_min": ciclo_duracao_min,
+    "ciclo_duracao_max": ciclo_duracao_max,
+    "ciclo_variabilidade": ciclo_variabilidade,
+    "ciclo_num_registrados": ciclo_num_registrados,
     "ciclo_hoje_raw": ciclo_hoje,
     "ciclo_calendario_raw": ciclo_calendario,
 }
