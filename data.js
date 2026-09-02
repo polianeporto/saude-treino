@@ -1,6 +1,6 @@
 const GARMIN = {
-  "atualizado": "02/09/2026 às 18:20h",
-  "resumo_personal": "📋 Resumo diário — Poli (02/09/2026 às 18:20h)\n\n⚡ Body Battery: 75/100 — ✅ Bom — pode treinar\n😴 Sono: 9.2h · score 84 — ✅ Sono bom\n❤️ FC repouso: 69 bpm\n🚶 Passos: 52/12160 (0%)\n🫁 SpO2 mínimo: 86%\n📊 Estresse médio: 20/100\n\n🏋️ Treino de hoje: Quadríceps + Adução\n🎯 Orientação: Pode treinar! Siga a ficha do dia. — Body Battery e sono em bom nível. Siga a ficha semanal normalmente. Monitore a FC durante o treino.",
+  "atualizado": "02/09/2026 às 21:29h",
+  "resumo_personal": "📋 Resumo diário — Poli (02/09/2026 às 21:29h)\n\n⚡ Body Battery: 75/100 — ✅ Bom — pode treinar\n😴 Sono: 9.2h · score 84 — ✅ Sono bom\n❤️ FC repouso: 69 bpm\n🚶 Passos: 52/12160 (0%)\n🫁 SpO2 mínimo: 86%\n📊 Estresse médio: 20/100\n\n🏋️ Treino de hoje: Quadríceps + Adução\n🎯 Orientação: Pode treinar! Siga a ficha do dia. — Body Battery e sono em bom nível. Siga a ficha semanal normalmente. Monitore a FC durante o treino.",
   "tag_sono": "Sono Bom",
   "tag_cor": "green",
   "frase_claude_noite": "Boa noite! 9.2h de sono com score 84. Body Battery ao acordar em boa forma. Aproveite o dia com intensidade normal.",
@@ -133,7 +133,7 @@ const GARMIN = {
   "cardio_feito": false,
   "musculacao_feita": false,
   "minutos_ativos_hoje": 0,
-  "alerta_treino": "",
+  "alerta_treino": "Treino de hoje: Quadríceps + Adução. Você ainda não registrou nenhuma atividade. Vai treinar hoje?",
   "alerta_treino_urgente": false,
-  "hora_brasilia": 15
+  "hora_brasilia": 18
 };
