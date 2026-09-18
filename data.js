@@ -1,6 +1,6 @@
 const GARMIN = {
-  "atualizado": "18/09/2026 às 16:52h",
-  "resumo_personal": "📋 Resumo diário — Poli (18/09/2026 às 16:52h)\n\n⚡ Body Battery: 24/100 — 🔴 Crítico — só recuperação hoje\n😴 Sono: 8.7h · score 64 — ⚡ Sono regular — atenção à intensidade\n❤️ FC repouso: 73 bpm\n🚶 Passos: 2793/7740 (36%)\n🫁 SpO2 mínimo: 88%\n📊 Estresse médio: 42/100\n\n🏋️ Treino de hoje: Glúteos ★\n🎯 Orientação: Dia de descanso ativo — Body Battery ou sono muito baixos. Bike leve 20–30 min · FC abaixo de 120 · Sem musculação pesada hoje.",
+  "atualizado": "18/09/2026 às 19:22h",
+  "resumo_personal": "📋 Resumo diário — Poli (18/09/2026 às 19:22h)\n\n⚡ Body Battery: 24/100 — 🔴 Crítico — só recuperação hoje\n😴 Sono: 8.7h · score 64 — ⚡ Sono regular — atenção à intensidade\n❤️ FC repouso: 73 bpm\n🚶 Passos: 2793/7740 (36%)\n🫁 SpO2 mínimo: 88%\n📊 Estresse médio: 42/100\n\n🏋️ Treino de hoje: Glúteos ★\n🎯 Orientação: Dia de descanso ativo — Body Battery ou sono muito baixos. Bike leve 20–30 min · FC abaixo de 120 · Sem musculação pesada hoje.",
   "tag_sono": "Sono Ruim",
   "tag_cor": "red",
   "frase_claude_noite": "Noite difícil: 8.7h com score 64 e apenas 109 min de REM. Seu corpo não recuperou de verdade — reduza a carga hoje.",
@@ -159,5 +159,5 @@ const GARMIN = {
   "minutos_ativos_hoje": 73,
   "alerta_treino": "",
   "alerta_treino_urgente": false,
-  "hora_brasilia": 13
+  "hora_brasilia": 16
 };
