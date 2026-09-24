@@ -1,6 +1,6 @@
 const GARMIN = {
-  "atualizado": "24/09/2026 às 19:42h",
-  "resumo_personal": "📋 Resumo diário — Poli (24/09/2026 às 19:42h)\n\n⚡ Body Battery: 28/100 — ⚠️ Baixo — treino leve\n😴 Sono: 6.5h · score 76 — ✅ Sono bom\n❤️ FC repouso: 67 bpm\n🚶 Passos: 3833/6700 (57%)\n🫁 SpO2 mínimo: 85%\n📊 Estresse médio: 34/100\n\n🏋️ Treino de hoje: Bíceps + Peito\n🎯 Orientação: Treino moderado — sem forçar — Sinais de recuperação incompleta. Musculação com carga reduzida · Cardio zona 2 · Sem corrida forte hoje.",
+  "atualizado": "24/09/2026 às 22:55h",
+  "resumo_personal": "📋 Resumo diário — Poli (24/09/2026 às 22:55h)\n\n⚡ Body Battery: 28/100 — ⚠️ Baixo — treino leve\n😴 Sono: 6.5h · score 76 — ✅ Sono bom\n❤️ FC repouso: 67 bpm\n🚶 Passos: 3833/6700 (57%)\n🫁 SpO2 mínimo: 85%\n📊 Estresse médio: 34/100\n\n🏋️ Treino de hoje: Bíceps + Peito\n🎯 Orientação: Treino moderado — sem forçar — Sinais de recuperação incompleta. Musculação com carga reduzida · Cardio zona 2 · Sem corrida forte hoje.",
   "tag_sono": "Sono Regular",
   "tag_cor": "yellow",
   "frase_claude_noite": "Noite razoável — 6.5h, score 76. REM de 82 min. Deu pra recuperar, mas atenção à intensidade do treino hoje.",
@@ -157,7 +157,7 @@ const GARMIN = {
   "cardio_feito": false,
   "musculacao_feita": false,
   "minutos_ativos_hoje": 0,
-  "alerta_treino": "",
+  "alerta_treino": "Treino de hoje: Bíceps + Peito. Você ainda não registrou nenhuma atividade. Vai treinar hoje?",
   "alerta_treino_urgente": false,
-  "hora_brasilia": 16
+  "hora_brasilia": 19
 };
