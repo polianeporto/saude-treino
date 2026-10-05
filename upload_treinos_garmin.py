@@ -272,7 +272,26 @@ def main():
             print(f"🗑️  Removido — workoutId: {workout_id}")
         return
 
-    chaves = list(WORKOUTS.keys()) if "--all" in args else [a.upper() for a in args]
+    if "--wipe-and-create" in args:
+        existentes = []
+        start = 0
+        while True:
+            pagina = client.get_workouts(start=start, limit=100)
+            if not pagina:
+                break
+            existentes.extend(pagina)
+            if len(pagina) < 100:
+                break
+            start += 100
+        print(f"\n=== Encontrados {len(existentes)} treino(s) salvos no Garmin Connect ===")
+        for w in existentes:
+            print(f"   - {w.get('workoutName')} (workoutId: {w.get('workoutId')})")
+        for w in existentes:
+            client.delete_workout(w["workoutId"])
+        print(f"🗑️  Removidos todos os {len(existentes)} treino(s) anteriores.")
+        chaves = list(WORKOUTS.keys())
+    else:
+        chaves = list(WORKOUTS.keys()) if "--all" in args else [a.upper() for a in args]
 
     for chave in chaves:
         if chave not in WORKOUTS:
