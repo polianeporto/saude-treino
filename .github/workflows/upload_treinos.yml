@@ -1,0 +1,33 @@
+name: Criar Treinos no Garmin Connect
+
+on:
+  workflow_dispatch:
+    inputs:
+      treinos:
+        description: 'Treinos a criar (ex: "A", "A B C", ou "--all")'
+        required: true
+        default: 'A'
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Instalar dependências
+        run: pip install "garminconnect==0.3.6"
+
+      - name: Criar treinos
+        env:
+          GARMIN_EMAIL: ${{ secrets.GARMIN_EMAIL }}
+          GARMIN_PASSWORD: ${{ secrets.GARMIN_PASSWORD }}
+          GARMIN_TOKENS: ${{ secrets.GARMIN_TOKENS }}
+          TREINOS_INPUT: ${{ github.event.inputs.treinos }}
+        run: python upload_treinos_garmin.py $TREINOS_INPUT
