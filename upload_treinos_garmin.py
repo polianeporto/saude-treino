@@ -252,7 +252,6 @@ def main():
     if not args:
         print(__doc__)
         sys.exit(1)
-    chaves = list(WORKOUTS.keys()) if "--all" in args else [a.upper() for a in args]
 
     tokens_json = os.environ.get("GARMIN_TOKENS")
     email = os.environ.get("GARMIN_EMAIL", "")
@@ -265,6 +264,15 @@ def main():
     else:
         client.login()
         print("Autenticado via usuário/senha")
+
+    if "--delete" in args:
+        ids = [a for a in args if a != "--delete"]
+        for workout_id in ids:
+            client.delete_workout(workout_id)
+            print(f"🗑️  Removido — workoutId: {workout_id}")
+        return
+
+    chaves = list(WORKOUTS.keys()) if "--all" in args else [a.upper() for a in args]
 
     for chave in chaves:
         if chave not in WORKOUTS:
