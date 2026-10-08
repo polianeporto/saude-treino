@@ -1,6 +1,6 @@
 const GARMIN = {
-  "atualizado": "08/10/2026 às 16:01h",
-  "resumo_personal": "📋 Resumo diário — Poli (08/10/2026 às 16:01h)\n\n⚡ Body Battery: 6/100 — 🔴 Crítico — só recuperação hoje\n😴 Sono: 3.5h · score 27 — ⚠️ Sono ruim — priorize recuperação\n❤️ FC repouso: 72 bpm\n🚶 Passos: 4832/9790 (49%)\n🫁 SpO2 mínimo: 83%\n📊 Estresse médio: 67/100\n\n🏋️ Treino de hoje: Bíceps + Peito\n🎯 Orientação: Dia de descanso ativo — Body Battery ou sono muito baixos. Bike leve 20–30 min · FC abaixo de 120 · Sem musculação pesada hoje.",
+  "atualizado": "08/10/2026 às 21:42h",
+  "resumo_personal": "📋 Resumo diário — Poli (08/10/2026 às 21:42h)\n\n⚡ Body Battery: 6/100 — 🔴 Crítico — só recuperação hoje\n😴 Sono: 3.5h · score 27 — ⚠️ Sono ruim — priorize recuperação\n❤️ FC repouso: 72 bpm\n🚶 Passos: 4832/9790 (49%)\n🫁 SpO2 mínimo: 83%\n📊 Estresse médio: 67/100\n\n🏋️ Treino de hoje: Bíceps + Peito\n🎯 Orientação: Dia de descanso ativo — Body Battery ou sono muito baixos. Bike leve 20–30 min · FC abaixo de 120 · Sem musculação pesada hoje.",
   "tag_sono": "Sono Ruim",
   "tag_cor": "red",
   "frase_claude_noite": "Noite difícil: 3.5h com score 27 e apenas 0 min de REM. Seu corpo não recuperou de verdade — reduza a carga hoje.",
@@ -149,7 +149,7 @@ const GARMIN = {
   "cardio_feito": false,
   "musculacao_feita": false,
   "minutos_ativos_hoje": 0,
-  "alerta_treino": "",
+  "alerta_treino": "Treino de hoje: Bíceps + Peito. Você ainda não registrou nenhuma atividade. Vai treinar hoje?",
   "alerta_treino_urgente": false,
-  "hora_brasilia": 13
+  "hora_brasilia": 18
 };
