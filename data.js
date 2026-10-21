@@ -1,6 +1,6 @@
 const GARMIN = {
-  "atualizado": "21/10/2026 às 15:52h",
-  "resumo_personal": "📋 Resumo diário — Poli (21/10/2026 às 15:52h)\n\n⚡ Body Battery: 68/100 — ✅ Bom — pode treinar\n😴 Sono: 7.3h · score 73 — ✅ Sono bom\n❤️ FC repouso: 65 bpm\n🚶 Passos: 328/3730 (9%)\n🫁 SpO2 mínimo: 85%\n📊 Estresse médio: 24/100\n\n🏋️ Treino de hoje: Quadríceps + Adução\n🎯 Orientação: Pode treinar! Siga a ficha do dia. — Body Battery e sono em bom nível. Siga a ficha semanal normalmente. Monitore a FC durante o treino.",
+  "atualizado": "21/10/2026 às 19:51h",
+  "resumo_personal": "📋 Resumo diário — Poli (21/10/2026 às 19:51h)\n\n⚡ Body Battery: 68/100 — ✅ Bom — pode treinar\n😴 Sono: 7.3h · score 73 — ✅ Sono bom\n❤️ FC repouso: 65 bpm\n🚶 Passos: 328/3730 (9%)\n🫁 SpO2 mínimo: 85%\n📊 Estresse médio: 24/100\n\n🏋️ Treino de hoje: Quadríceps + Adução\n🎯 Orientação: Pode treinar! Siga a ficha do dia. — Body Battery e sono em bom nível. Siga a ficha semanal normalmente. Monitore a FC durante o treino.",
   "tag_sono": "Sono Regular",
   "tag_cor": "yellow",
   "frase_claude_noite": "Noite razoável — 7.3h, score 73. REM de 81 min. Deu pra recuperar, mas atenção à intensidade do treino hoje.",
@@ -151,5 +151,5 @@ const GARMIN = {
   "minutos_ativos_hoje": 0,
   "alerta_treino": "",
   "alerta_treino_urgente": false,
-  "hora_brasilia": 12
+  "hora_brasilia": 16
 };
