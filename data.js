@@ -1,6 +1,6 @@
 const GARMIN = {
-  "atualizado": "23/10/2026 às 19:42h",
-  "resumo_personal": "📋 Resumo diário — Poli (23/10/2026 às 19:42h)\n\n⚡ Body Battery: 55/100 — ⚡ Moderado — cuidado na intensidade\n😴 Sono: 7.0h · score 79 — ✅ Sono bom\n❤️ FC repouso: 69 bpm\n🚶 Passos: 1502/4510 (33%)\n🫁 SpO2 mínimo: 90%\n📊 Estresse médio: 26/100\n\n🏋️ Treino de hoje: Glúteos ★\n🎯 Orientação: Pode treinar! Siga a ficha do dia. — Body Battery e sono em bom nível. Siga a ficha semanal normalmente. Monitore a FC durante o treino.",
+  "atualizado": "23/10/2026 às 22:49h",
+  "resumo_personal": "📋 Resumo diário — Poli (23/10/2026 às 22:49h)\n\n⚡ Body Battery: 55/100 — ⚡ Moderado — cuidado na intensidade\n😴 Sono: 7.0h · score 79 — ✅ Sono bom\n❤️ FC repouso: 69 bpm\n🚶 Passos: 1502/4510 (33%)\n🫁 SpO2 mínimo: 90%\n📊 Estresse médio: 26/100\n\n🏋️ Treino de hoje: Glúteos ★\n🎯 Orientação: Pode treinar! Siga a ficha do dia. — Body Battery e sono em bom nível. Siga a ficha semanal normalmente. Monitore a FC durante o treino.",
   "tag_sono": "Sono Regular",
   "tag_cor": "yellow",
   "frase_claude_noite": "Noite razoável — 7.0h, score 79. REM de 93 min. Deu pra recuperar, mas atenção à intensidade do treino hoje.",
@@ -149,7 +149,7 @@ const GARMIN = {
   "cardio_feito": false,
   "musculacao_feita": false,
   "minutos_ativos_hoje": 0,
-  "alerta_treino": "",
+  "alerta_treino": "Treino de hoje: Glúteos ★. Você ainda não registrou nenhuma atividade. Vai treinar hoje?",
   "alerta_treino_urgente": false,
-  "hora_brasilia": 16
+  "hora_brasilia": 19
 };
