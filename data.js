@@ -1,6 +1,6 @@
 const GARMIN = {
-  "atualizado": "26/10/2026 às 14:44h",
-  "resumo_personal": "📋 Resumo diário — Poli (26/10/2026 às 14:44h)\n\n⚡ Body Battery: 74/100 — ✅ Bom — pode treinar\n😴 Sono: 6.7h · score 68 — ⚡ Sono regular — atenção à intensidade\n❤️ FC repouso: 66 bpm\n🚶 Passos: 313/4350 (7%)\n🫁 SpO2 mínimo: 87%\n📊 Estresse médio: 20/100\n\n🏋️ Treino de hoje: Costas + Ombro\n🎯 Orientação: Pode treinar! Siga a ficha do dia. — Body Battery e sono em bom nível. Siga a ficha semanal normalmente. Monitore a FC durante o treino.",
+  "atualizado": "26/10/2026 às 20:15h",
+  "resumo_personal": "📋 Resumo diário — Poli (26/10/2026 às 20:15h)\n\n⚡ Body Battery: 74/100 — ✅ Bom — pode treinar\n😴 Sono: 6.7h · score 68 — ⚡ Sono regular — atenção à intensidade\n❤️ FC repouso: 66 bpm\n🚶 Passos: 313/4350 (7%)\n🫁 SpO2 mínimo: 87%\n📊 Estresse médio: 20/100\n\n🏋️ Treino de hoje: Costas + Ombro\n🎯 Orientação: Pode treinar! Siga a ficha do dia. — Body Battery e sono em bom nível. Siga a ficha semanal normalmente. Monitore a FC durante o treino.",
   "tag_sono": "Sono Regular",
   "tag_cor": "yellow",
   "frase_claude_noite": "Noite razoável — 6.7h, score 68. REM de 100 min. Deu pra recuperar, mas atenção à intensidade do treino hoje.",
@@ -149,7 +149,7 @@ const GARMIN = {
   "cardio_feito": false,
   "musculacao_feita": false,
   "minutos_ativos_hoje": 0,
-  "alerta_treino": "",
+  "alerta_treino": "Treino de hoje: Costas + Ombro. Você ainda não registrou nenhuma atividade. Vai treinar hoje?",
   "alerta_treino_urgente": false,
-  "hora_brasilia": 11
+  "hora_brasilia": 17
 };
